@@ -9,11 +9,13 @@ import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
+import { ConfiguracionComponent } from './configuracion/configuracion.component';
 
 // import{} from'@angular/flex-layout'
 @NgModule({
   declarations: [
     AlimentacionComponent,
+    ConfiguracionComponent,
   ],
   imports: [
     CommonModule,

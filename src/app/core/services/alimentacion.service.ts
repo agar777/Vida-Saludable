@@ -23,7 +23,8 @@ export class AlimentacionService {
       let ref={
         nutricion_id: data['nutricion_id'],
         saludable:data['saludable'],
-        fecha:data['fecha'] 
+        fecha:data['fecha'],
+        hora:data['hora'] 
       }
       this.store.collection('h_alimentacion').add(ref)
     }
