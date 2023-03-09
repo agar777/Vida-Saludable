@@ -21,11 +21,8 @@ export class EjercicioService {
 
     create(data:any){
       let ref={
-        nombre: data['nombre'],
-        descripcion:data['descripcion'],
-        repeticiones:data['repeticiones'],
-        series:data['series'],
-        descanso:data['descanso'],
+        ejercicio_id: data['ejercicio_id'],
+        hora:data['hora'],
         fecha:data['fecha']
       }
       this.store.collection('h_ejercicio').add(ref)

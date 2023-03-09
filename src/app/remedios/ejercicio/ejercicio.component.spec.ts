@@ -12,7 +12,7 @@ describe('ejercicioComponent', () => {
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ejercicioComponent);
+    fixture = TestBed.createComponent();
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

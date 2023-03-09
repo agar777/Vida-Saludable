@@ -18,7 +18,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'maps',           component: MapsComponent },
 
       {
-        path: 'alimentacion',
+        path: 'remedios',
         loadChildren: () => import('src/app/remedios/remedios.module').then(m => m.RemediosModule)
       }
   

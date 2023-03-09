@@ -3,7 +3,7 @@
     <div class="header-body">
       <!-- Card stats -->
       <div class="row d-flex justify-content-center  ">
-        <div class="col-xl-3 col-lg-6" *ngFor="let item of alimentacion" >
+        <div class="col-xl-3 col-lg-6" *ngFor="let item of ejercicio" >
          <a (click)="eventClick(item)" >
           <div class="card card-stats mb-4 mb-xl-0">
             <div class="card-body">
@@ -35,11 +35,11 @@
     <div class="col">
       <div class="card shadow">
         <div class="card-header bg-transparent">
-          <h3 class="mb-0 text-uppercase " *ngIf="deporte?.descripcion!=null"> {{deporte?.nombre}} </h3>
+          <h3 class="mb-0 text-uppercase " *ngIf="deporte?.ejercicio_id!=null"> {{deporte?.nombre}} </h3>
         </div>
         <div class="card-body">
-            <!-- <form [formGroup]="form" (ngSubmit)="save(form.value)"  >
-              <mat-card *ngIf="deporte?.descripcion!=null" >
+            <form [formGroup]="form" (ngSubmit)="save(form.value)"  >
+              <mat-card *ngIf="deporte?.ejercicio_id!=null" >
                 <mat-card-content>
                     <div class="row">
                       <div class="col-md-12 col-sm-12">
@@ -56,25 +56,6 @@
                         </div>
 
                       </div>
-                      <div class="col-md-12 col-sm-12">
-                        <div class="form-group ">
-                          <label class="form-control-label" for="input-username">SALUDABLE</label>
-                          <div class="form-check">
-                            <input class="form-check-input" formControlName="saludable" value="true" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                            <label class="form-check-label" for="flexRadioDefault1">
-                              SI
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" formControlName="saludable" value="false" type="radio" name="flexRadioDefault" id="flexRadioDefault2" >
-                            <label class="form-check-label" for="flexRadioDefault2">
-                              NO
-                            </label>
-                          </div>
-                        </div>
-
-
-                      </div>
                     </div>
                 </mat-card-content>
                 <div class="col-md-5">
@@ -88,7 +69,7 @@
               </div>
               </mat-card>
 
-            </form> -->
+            </form>
         </div>
       </div>
     </div>

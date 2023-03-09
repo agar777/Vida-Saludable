@@ -28,8 +28,7 @@ export class EjercicioComponent implements OnInit {
 
   create() {
     this.form = this.formBuilder.group({
-      descripcion:[''],
-      sano:[''],
+      ejercicio_id:[''],
       fecha:[this.dataPipe.transform(Date.now(),'yyyy-MM-dd')],
       hora:[this.dataPipe.transform(Date.now(),'HH:mm:ss')]
     });
@@ -46,7 +45,7 @@ export class EjercicioComponent implements OnInit {
   eventClick(item){
     this.deporte= item
     console.log(item);
-      this.form.controls.nombre.setValue(item.nombre);
+      this.form.controls.ejercicio_id.setValue(item.ejercicio_id);
   }
 
   save(data){
