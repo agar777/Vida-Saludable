@@ -17,6 +17,7 @@ import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 
 @NgModule({
@@ -38,7 +39,7 @@ import { AngularFireModule } from '@angular/fire/compat';
     AdminLayoutComponent,
     AuthLayoutComponent
   ],
-  providers: [],
+  providers: [AngularFirestore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

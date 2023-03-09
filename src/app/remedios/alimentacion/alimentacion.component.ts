@@ -12,6 +12,8 @@ export class AlimentacionComponent implements OnInit {
 
   alimentacion: any;
   form: FormGroup;
+  time = new Date();
+  nutricion: any;
 
   constructor(
     private alimentacionService: AlimentacionService,
@@ -27,8 +29,9 @@ export class AlimentacionComponent implements OnInit {
   create() {
     this.form = this.formBuilder.group({
       nutricion_id:[''],
-      salubable:['', Validators.required],
-      fecha:['']
+      saludable:[''],
+      fecha:[this.dataPipe.transform(Date.now(),'yyyy-MM-dd')],
+      hora:[this.dataPipe.transform(Date.now(),'HH:mm:ss')]
     });
   }
 
@@ -41,11 +44,16 @@ export class AlimentacionComponent implements OnInit {
   }
 
   eventClick(item){
-      // this.form.controls.fecha.setValue(item);
+    this.nutricion= item
+    console.log(item);    
+      this.form.controls.nutricion_id.setValue(item.nutricion_id);
   }
 
-  // submit(data){
-  //   this.alimentacionService.create(data);
-  // }
+  save(data){
+    const response=this.alimentacionService.create(data);
+    console.log(data);
+    console.log(response);
+    
+  }
 
 }
