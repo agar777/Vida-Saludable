@@ -37,7 +37,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
   ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent]
