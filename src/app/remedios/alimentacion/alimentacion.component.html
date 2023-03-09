@@ -10,7 +10,7 @@
                 <div class="row">
                   <div class="col">
                       <!-- <h3 class="text-uppercase font-weight-bold" >{{item.nombre}}</h3> -->
-                    <span class="text-uppercase font-weight-bold mb-0">{{item.nombre}}</span>
+                    <span class="text-uppercase font-weight-bold mb-0">{{item?.nombre}}</span>
                   </div>
                   <div class="col-auto ">
                     <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -35,11 +35,11 @@
       <div class="col">
         <div class="card shadow">
           <div class="card-header bg-transparent">
-            <h3 class="mb-0"> TIPO DE ALIMENTACIÓN:{{nutricion.nombre}} </h3>
+            <h3 class="mb-0 text-uppercase " *ngIf="nutricion?.nutricion_id!=null"> {{nutricion?.nombre}} </h3>
           </div>
           <div class="card-body">
               <form [formGroup]="form" (ngSubmit)="save(form.value)"  >
-                <mat-card *ngIf="nutricion.nutricion_id!=null" >
+                <mat-card *ngIf="nutricion?.nutricion_id!=null" >
                   <mat-card-content>
                       <div class="row">
                         <div class="col-md-12 col-sm-12">
