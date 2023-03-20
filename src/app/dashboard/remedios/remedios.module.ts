@@ -11,6 +11,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import { ConfiguracionComponent } from './configuracion/configuracion.component';
 import { EjercicioComponent } from './ejercicio/ejercicio.component';
 import { AguaComponent } from './agua/agua.component';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 // import{} from'@angular/flex-layout'
 @NgModule({
@@ -31,7 +32,8 @@ import { AguaComponent } from './agua/agua.component';
     MatRadioModule
   ],
   providers: [
-    DatePipe,
+  AngularFirestore,
+  DatePipe,
   ]
 })
 export class RemediosModule { }

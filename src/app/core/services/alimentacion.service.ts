@@ -9,14 +9,22 @@ import { Alimentacion } from '../models/alimentacion';
 })
 export class AlimentacionService {
 
+  alimentacion: any[]=[];
 
   constructor(private store: AngularFirestore,private  firestore: Firestore) { }
 
   getAll(): Observable<any>{
-    const ref = collection(this.firestore,'alimentacion');
-    const q = query(ref,orderBy('nutricion_id'))
-    // const ref = this.store.collection(this.firestore,'alimentacion', ref=> ref.orderBy('nutricion_id'))
-    return collectionData(q,{idField:'id'})as Observable<Alimentacion[]>;
+    this.alimentacion.splice(0,5);
+    this.store.firestore.collection('alimentacion').orderBy('nutricion_id').onSnapshot({includeMetadataChanges:true},(snapshot)=>{
+      snapshot.docChanges().forEach((change)=>{   
+        if(change.type ==="added"){          
+            this.alimentacion.push(change.doc.data());                        
+        }
+        
+      })
+      let source = snapshot.metadata.fromCache ? "local cache" : "firebase server";
+    })
+    return of(this.alimentacion)
   }
 
     create(data:any):Observable<any>{
@@ -26,7 +34,8 @@ export class AlimentacionService {
         fecha:data['fecha'],
         hora:data['hora'],
         estado:data['estado'] 
-      }
+      }     
+
       return of(this.store.collection('h_alimentacion').add(ref))
     }
   
