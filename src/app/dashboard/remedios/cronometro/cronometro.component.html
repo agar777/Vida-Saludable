@@ -1,0 +1,16 @@
+<div class="container">
+   <div class="d-flex justify-content-center mb-5" >
+        <div class="reloj">{{horas}}</div>
+        <div class="reloj">:{{minutos}}</div>
+        <div class="reloj">:{{segundos}}</div>
+        <div class="reloj">:{{centesimas}}</div>
+   </div>
+   <div class="d-flex justify-content-center">
+        <a  mat-mini-fab  color="primary" (click)="start()"  class="me-1">
+            <mat-icon matSuffix>{{!running?'play_arrow':'pause'}}</mat-icon>
+          </a>
+          <a  mat-mini-fab color="warn" (click)="reset()" >
+            <mat-icon matSuffix>replay</mat-icon>
+          </a>
+    </div>
+</div>

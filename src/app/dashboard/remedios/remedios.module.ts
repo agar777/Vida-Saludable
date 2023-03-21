@@ -13,6 +13,8 @@ import { EjercicioComponent } from './ejercicio/ejercicio.component';
 import { AguaComponent } from './agua/agua.component';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { TipoEjerciciosComponent } from './tipo-ejercicios/tipo-ejercicios.component';
+import { CronometroComponent } from './cronometro/cronometro.component';
+import { WebMaterialModule } from '../../webmaterial.module';
 
 // import{} from'@angular/flex-layout'
 @NgModule({
@@ -21,17 +23,15 @@ import { TipoEjerciciosComponent } from './tipo-ejercicios/tipo-ejercicios.compo
     ConfiguracionComponent,
     EjercicioComponent,
     AguaComponent,
-    TipoEjerciciosComponent
+    TipoEjerciciosComponent,
+    CronometroComponent
   ],
   imports: [
     CommonModule,
     RemediosRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatCheckboxModule,
-    MatRadioModule
+    WebMaterialModule
   ],
   providers: [
   AngularFirestore,

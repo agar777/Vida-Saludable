@@ -31,19 +31,23 @@ export class EjercicioService {
     return of(this.ejercicio)
   }
 
-    create(data:any){
+    create(data:any):Observable<any>{
       let ref={
         user_id: this.tokenStorage.getId(),
         ejercicio_id: data['ejercicio_id'],
+        fecha:data['fecha'],
         hora:data['hora'],
-        fecha:data['fecha']
-      }
-      this.store.collection('h_ejercicio').add(ref)
+        hora_inicio:data['hora_inicio'],      
+        hora_fin:data['hora_fin']      
+       }     
+
+      return of(this.store.collection('h_ejercicio').add(ref))
+
     }
   
     getTipoEjercicio(id:any):Observable<any>{
       this.tipo_ejercicio.splice(0,3);
-      this.store.firestore.collection('tipo_ejercicio').where('ejercicio_id','==',id).orderBy('nombre').onSnapshot({includeMetadataChanges:true},(snapshot)=>{
+      this.store.firestore.collection('tipo_ejercicio').where('ejercicio_id','==',id).onSnapshot({includeMetadataChanges:true},(snapshot)=>{
         snapshot.docChanges().forEach((change)=>{   
           if(change.type ==="added"){          
               this.tipo_ejercicio.push(change.doc.data());                        
