@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { collection,query,orderBy, Firestore,collectionData, where} from '@angular/fire/firestore';
 import { Alimentacion } from '../models/alimentacion';
+import { TokenStorageService } from './token-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,9 @@ export class AlimentacionService {
 
   alimentacion: any[]=[];
 
-  constructor(private store: AngularFirestore,private  firestore: Firestore) { }
+  constructor(private store: AngularFirestore,private  firestore: Firestore, 
+    private tokenStorage:TokenStorageService
+    ) { }
 
   getAll(): Observable<any>{
     this.alimentacion.splice(0,5);
@@ -29,6 +32,7 @@ export class AlimentacionService {
 
     create(data:any):Observable<any>{
       let ref={
+        user_id: this.tokenStorage.getId(),
         nutricion_id: data['nutricion_id'],
         saludable:data['saludable'],
         fecha:data['fecha'],

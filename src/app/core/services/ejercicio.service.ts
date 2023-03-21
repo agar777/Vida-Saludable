@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { collection,query,orderBy, Firestore, addDoc, collectionData, onSnapshot } from '@angular/fire/firestore';
 import { Ejercicio } from '../models/ejercicio';
+import { TokenStorageService } from './token-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import { Ejercicio } from '../models/ejercicio';
 export class EjercicioService {
 
 
-  constructor(private store: AngularFirestore,private  firestore: Firestore) { }
+  constructor(private store: AngularFirestore,private  firestore: Firestore,
+    private tokenStorage: TokenStorageService ){ }
 
   getAll(): Observable<any>{
     const ref = collection(this.firestore,'ejercicio');
@@ -21,6 +23,7 @@ export class EjercicioService {
 
     create(data:any){
       let ref={
+        user_id: this.tokenStorage.getId(),
         ejercicio_id: data['ejercicio_id'],
         hora:data['hora'],
         fecha:data['fecha']

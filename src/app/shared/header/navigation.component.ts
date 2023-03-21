@@ -1,6 +1,9 @@
 import { Component, AfterViewInit, EventEmitter, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../../core/services/auth.service';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { TokenStorageService } from '../../core/services/token-storage.service';
+import { Route, Router } from '@angular/router';
 
 declare var $: any;
 
@@ -15,7 +18,12 @@ export class NavigationComponent implements AfterViewInit {
 
   public showSearch = false;
 
-  constructor(private modalService: NgbModal) {
+  constructor(
+    private modalService: NgbModal, 
+    private authService: AuthService, 
+    private tokenStorage:TokenStorageService,
+    private route: Router
+    ) {
   }
 
   // This is for Notifications
@@ -112,4 +120,16 @@ export class NavigationComponent implements AfterViewInit {
   }]
 
   ngAfterViewInit() { }
+
+  logOut(){
+    this.authService.logOut().then(data=>{
+        this.tokenStorage.signOut();
+        this.route.navigate(['/auth/login']);
+
+
+    }).catch(error=>{
+      console.log(error);
+      
+    })
+  }
 }

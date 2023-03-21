@@ -1,0 +1,14 @@
+.isDisabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  background-color: #D6DBDF
+}
+
+.noDisabled{
+    pointer-events:all;
+    cursor:auto;
+}
+.isDisabled:hover {
+
+    cursor: not-allowed
+}

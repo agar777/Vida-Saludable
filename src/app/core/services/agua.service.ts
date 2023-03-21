@@ -3,30 +3,40 @@ import { Observable, of } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { collection,query,orderBy, Firestore,collectionData, where} from '@angular/fire/firestore';
 import { Agua, Alimentacion } from '../models/alimentacion';
+import { TokenStorageService } from './token-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AguaService {
 
+  agua:any[]=[]
 
-  constructor(private store: AngularFirestore,private  firestore: Firestore) { }
+  constructor(private store: AngularFirestore,private  firestore: Firestore,
+    private tokenStorage: TokenStorageService) { }
 
   getAll(): Observable<any>{
-    const ref = collection(this.firestore,'agua');
-    const q = query(ref,orderBy('agua_id'))
-    // const ref = this.store.collection(this.firestore,'alimentacion', ref=> ref.orderBy('nutricion_id'))
-    return collectionData(q,{idField:'id'})as Observable<Agua[]>;
+    this.agua.splice(0,8);
+    this.store.firestore.collection('agua').orderBy('agua_id').onSnapshot({includeMetadataChanges:true},(snapshot)=>{
+      snapshot.docChanges().forEach((change)=>{   
+        if(change.type ==="added"){          
+            this.agua.push(change.doc.data());                        
+        }
+        
+      })
+      let source = snapshot.metadata.fromCache ? "local cache" : "firebase server";
+    })
+    return of(this.agua)
   }
 
     create(data:any):Observable<any>{
       let ref={
+        user_id: this.tokenStorage.getId(),
         agua_id: data['agua_id'],
         fecha:data['fecha'],
-        hora:data['hora'],
-        estado:data['estado'] 
+        hora:data['hora']
       }
-      return of(this.store.collection('h_alimentacion').add(ref))
+      return of(this.store.collection('h_agua').add(ref))
     }
   
     

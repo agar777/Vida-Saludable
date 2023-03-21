@@ -1,0 +1,33 @@
+<div class="limiter">
+    <div class="container-login100">
+        <div class=" wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+            <form class="login100-form validate-form" [formGroup]="form" (ngSubmit)="login(form.value)" >
+                <span class="login100-form-title p-b-49">
+                    VIDA SALUDABLE
+                </span>
+                <div class="d-flex justify-content-center" >
+                    <img src=".../../../../../assets/images/habitos-de-vida-saludable.jpg" width="150px" class="img-fluid" alt="...">
+                </div>
+
+                <div class="mt-5 wrap-input100 validate-input mb-3" data-validate ="Correo Electronico es Requerido">
+                    <label class="">Correo Electronico</label>
+                    <input class="input100" formControlName="email" type="text" name="username">                    
+                </div>
+
+                <div class="wrap-input100 validate-input mb-3" data-validate="Contraseña es requerido">
+                    <label class="">Contraseña</label>
+                    <input class="input100" formControlName="password" type="password" name="pass">
+                </div>
+                
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <button class="login100-form-btn" [disabled]="!form.valid"  type="submit" >
+                            Iniciar Sesión
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

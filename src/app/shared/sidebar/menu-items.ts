@@ -12,8 +12,8 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '/dashboard/remedios/alimentacion',
-    title: 'Alimentacion',
-    icon: 'bi bi-bell',
+    title: 'Alimentación',
+    icon: 'bi bi-egg-fried',
     class: '',
     extralink: false,
     submenu: []
@@ -21,7 +21,7 @@ export const ROUTES: RouteInfo[] = [
   {
     path: '/dashboard/remedios/agua',
     title: 'Agua',
-    icon: 'bi bi-bell',
+    icon: 'bi bi-droplet',
     class: '',
     extralink: false,
     submenu: []
@@ -29,7 +29,7 @@ export const ROUTES: RouteInfo[] = [
   {
     path: '/dashboard/remedios/ejercicio',
     title: 'Ejercicio',
-    icon: 'bi bi-bell',
+    icon: 'bi bi-bicycle',
     class: '',
     extralink: false,
     submenu: []
