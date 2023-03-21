@@ -12,6 +12,7 @@ import { ConfiguracionComponent } from './configuracion/configuracion.component'
 import { EjercicioComponent } from './ejercicio/ejercicio.component';
 import { AguaComponent } from './agua/agua.component';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { TipoEjerciciosComponent } from './tipo-ejercicios/tipo-ejercicios.component';
 
 // import{} from'@angular/flex-layout'
 @NgModule({
@@ -19,7 +20,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
     AlimentacionComponent,
     ConfiguracionComponent,
     EjercicioComponent,
-    AguaComponent
+    AguaComponent,
+    TipoEjerciciosComponent
   ],
   imports: [
     CommonModule,

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { EjercicioComponent } from './ejercicio/ejercicio.component';
 import { AlimentacionComponent } from './alimentacion/alimentacion.component';
 import { AguaComponent } from './agua/agua.component';
+import { TipoEjerciciosComponent } from './tipo-ejercicios/tipo-ejercicios.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path:'agua',
     component: AguaComponent
+  },
+  {
+    path:'tipo-ejercicio/:id',
+    component: TipoEjerciciosComponent
   }
 ];
 

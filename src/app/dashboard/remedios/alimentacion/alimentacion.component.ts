@@ -16,7 +16,7 @@ export class AlimentacionComponent implements OnInit {
   form!: FormGroup;
   time = new Date();
   nutricion!: any;
-
+  hora:any;
   constructor(
     private alimentacionService: AlimentacionService,
     private formBuilder: FormBuilder,
@@ -24,8 +24,12 @@ export class AlimentacionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.hora=this.dataPipe.transform(Date.now(),'HH:mm');
+
     this.listaAlimentacion();
     this.create();
+    console.log('hora', this.hora);
+    
   }
 
   create() {
@@ -47,10 +51,8 @@ export class AlimentacionComponent implements OnInit {
   }
 
   eventClick(item: any){
-    this.nutricion= item
-    console.log(item);    
+      this.nutricion= item
       this.form.controls.nutricion_id.setValue(item.nutricion_id);
-      this.form.controls.estado.setValue(1);
   }
 
   save(data:any){

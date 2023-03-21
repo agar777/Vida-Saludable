@@ -47,7 +47,7 @@ export class EjercicioComponent implements OnInit {
     this.deporte= item
     console.log(item);
       this.form.controls.ejercicio_id.setValue(item.ejercicio_id);
-      // this.form.controls.estado.setValue(1);
+    
   }
 
   save(data:any){

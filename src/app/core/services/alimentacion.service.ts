@@ -36,8 +36,7 @@ export class AlimentacionService {
         nutricion_id: data['nutricion_id'],
         saludable:data['saludable'],
         fecha:data['fecha'],
-        hora:data['hora'],
-        estado:data['estado'] 
+        hora:data['hora'] 
       }     
 
       return of(this.store.collection('h_alimentacion').add(ref))
