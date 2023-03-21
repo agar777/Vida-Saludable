@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EjercicioService } from '../../../core/services/ejercicio.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ejercicio',
@@ -46,6 +47,7 @@ export class EjercicioComponent implements OnInit {
     this.deporte= item
     console.log(item);
       this.form.controls.ejercicio_id.setValue(item.ejercicio_id);
+      // this.form.controls.estado.setValue(1);
   }
 
   save(data:any){
