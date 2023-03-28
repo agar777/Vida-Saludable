@@ -4,6 +4,9 @@ import { EjercicioComponent } from './ejercicio/ejercicio.component';
 import { AlimentacionComponent } from './alimentacion/alimentacion.component';
 import { AguaComponent } from './agua/agua.component';
 import { TipoEjerciciosComponent } from './tipo-ejercicios/tipo-ejercicios.component';
+import { LuzSolarComponent } from './luz-solar/luz-solar.component';
+import { DescansoComponent } from './descanso/descanso.component';
+import { EsperanzaComponent } from './esperanza/esperanza.component';
 
 const routes: Routes = [
   {
@@ -21,7 +24,19 @@ const routes: Routes = [
   {
     path:'tipo-ejercicio/:id',
     component: TipoEjerciciosComponent
-  }
+  },
+  {
+    path:'luz-solar',
+    component: LuzSolarComponent
+  },
+  {
+    path:'descanso',
+    component: DescansoComponent
+  },
+  {
+    path:'esperanza',
+    component: EsperanzaComponent
+  },
 ];
 
 @NgModule({

@@ -15,6 +15,9 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { TipoEjerciciosComponent } from './tipo-ejercicios/tipo-ejercicios.component';
 import { CronometroComponent } from './cronometro/cronometro.component';
 import { WebMaterialModule } from '../../webmaterial.module';
+import { LuzSolarComponent } from './luz-solar/luz-solar.component';
+import { DescansoComponent } from './descanso/descanso.component';
+import { EsperanzaComponent } from './esperanza/esperanza.component';
 
 // import{} from'@angular/flex-layout'
 @NgModule({
@@ -24,7 +27,10 @@ import { WebMaterialModule } from '../../webmaterial.module';
     EjercicioComponent,
     AguaComponent,
     TipoEjerciciosComponent,
-    CronometroComponent
+    CronometroComponent,
+    LuzSolarComponent,
+    DescansoComponent,
+    EsperanzaComponent
   ],
   imports: [
     CommonModule,

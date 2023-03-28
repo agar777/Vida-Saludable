@@ -2,34 +2,39 @@ export interface topcard {
     bgcolor: string,
     icon: string,
     title: string,
-    subtitle: string
 }
 
 export const topcards: topcard[] = [
 
     {
-        bgcolor: 'success',
-        icon: 'bi bi-wallet',
-        title: '$21k',
-        subtitle: 'Yearly Earning'
+        bgcolor: 'info',
+        icon: 'bi bi-egg-fried',
+        title: 'Alimentación'
+    }, 
+    {
+        bgcolor: 'info',
+        icon: 'bi bi-droplet',
+        title: 'Agua'
+    }, 
+    {
+        bgcolor: 'info',
+        icon: 'bi bi-bicycle',
+        title: 'Ejercicio'
     },
     {
-        bgcolor: 'danger',
-        icon: 'bi bi-coin',
-        title: '$1k',
-        subtitle: 'Refund given'
+        bgcolor: 'info',
+        icon: 'bi bi-brightness-high',
+        title: 'Luz Solar'
     },
     {
-        bgcolor: 'warning',
-        icon: 'bi bi-basket3',
-        title: '456',
-        subtitle: 'Yearly Project'
+        bgcolor: 'info',
+        icon: 'bi bi-moon-stars-fill',
+        title: 'Descanso'
     },
     {
         bgcolor: 'info',
         icon: 'bi bi-bag',
-        title: '210',
-        subtitle: 'Weekly Sales'
+        title: 'bi bi-heart-pulse'
     },
 
 ] 
