@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-alimentacion',
   templateUrl: './alimentacion.component.html',
-  styleUrls: ['./alimentacion.component.scss']
+  styleUrls: ['./alimentacion.component.scss'],
 })
 export class AlimentacionComponent implements OnInit {
 
@@ -17,6 +17,8 @@ export class AlimentacionComponent implements OnInit {
   time = new Date();
   nutricion!: any;
   hora:any;
+  progress: any[] = [];
+  suma: any;
   constructor(
     private alimentacionService: AlimentacionService,
     private formBuilder: FormBuilder,
@@ -29,6 +31,7 @@ export class AlimentacionComponent implements OnInit {
     this.listaAlimentacion();
     this.create();
     console.log('hora', this.hora);
+    this.progreso();
     
   }
 
@@ -38,7 +41,7 @@ export class AlimentacionComponent implements OnInit {
       saludable:['', Validators.required],
       fecha:[this.dataPipe.transform(Date.now(),'yyyy-MM-dd')],
       hora:[this.dataPipe.transform(Date.now(),'HH:mm:ss')],
-      estado:['']
+      progreso:['']
     });
   }
 
@@ -53,6 +56,7 @@ export class AlimentacionComponent implements OnInit {
   eventClick(item: any){
       this.nutricion= item
       this.form.controls.nutricion_id.setValue(item.nutricion_id);
+      this.form.controls.progreso.setValue(item.progreso);
   }
 
   save(data:any){
@@ -74,7 +78,17 @@ export class AlimentacionComponent implements OnInit {
       }
     )
     this.listaAlimentacion();
+    this.progreso();
     this.nutricion=null;
   }
+
+  progreso(){
+    this.alimentacionService.getProgress().subscribe(data=>{
+      this.progress = data;    
+      console.log(this.progress);
+      
+    })
+  }
+
 
 }

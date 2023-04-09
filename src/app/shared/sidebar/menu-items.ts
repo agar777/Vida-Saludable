@@ -4,7 +4,7 @@ export const ROUTES: RouteInfo[] = [
  
   {
     path: '/dashboard',
-    title: 'Dashboard',
+    title: 'Inicio',
     icon: 'bi bi-speedometer2',
     class: '',
     extralink: false,

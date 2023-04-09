@@ -18,6 +18,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
     imports: [
@@ -49,7 +50,8 @@ import {CdkAccordionModule} from '@angular/cdk/accordion';
         MatAutocompleteModule,
         MatCheckboxModule,
         MatExpansionModule,
-        CdkAccordionModule
+        CdkAccordionModule,
+        MatProgressBarModule
     ],
 })
 export class WebMaterialModule { }

@@ -7,6 +7,7 @@ import { TipoEjerciciosComponent } from './tipo-ejercicios/tipo-ejercicios.compo
 import { LuzSolarComponent } from './luz-solar/luz-solar.component';
 import { DescansoComponent } from './descanso/descanso.component';
 import { EsperanzaComponent } from './esperanza/esperanza.component';
+import { ConfiguracionComponent } from './configuracion/configuracion.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path:'esperanza',
     component: EsperanzaComponent
+  },
+  {
+    path:'configuracion-alimentacion',
+    component: ConfiguracionComponent
   },
 ];
 

@@ -1,5 +1,6 @@
 <div class="row">
     <div class="col-md-6 col-lg-4" *ngFor='let topcard of topcards'>
+       <a routerLink="{{topcard.ruta}}">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -12,5 +13,6 @@
                 </div>
             </div>
         </div>
+       </a>
     </div>
 </div>

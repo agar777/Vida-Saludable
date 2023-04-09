@@ -14,7 +14,7 @@ export class AguaComponent implements OnInit {
 
   form!:FormGroup;
   agua!:any; 
-  estado=true;
+  progress: any;
 
   constructor(
     private aguaService: AguaService,
@@ -25,6 +25,7 @@ export class AguaComponent implements OnInit {
   ngOnInit(): void {
     this.listaAgua();
     this.create();
+    this.progreso();
   }
 
   create() {
@@ -43,14 +44,9 @@ export class AguaComponent implements OnInit {
     })
   }
 
-  evento(item:any, estado:any){
+  evento(item:any){
       this.form.controls.agua_id.setValue(item);
-      // this.form.get('agua_id').setValue(item);
-
-      if (estado) {      
-        this.save(this.form.value);
-      }
-      this.estado = false      
+        this.save(this.form.value);   
   }
 
   save(form:any){
@@ -72,7 +68,16 @@ export class AguaComponent implements OnInit {
       }
     )
     this.listaAgua();
+    this.progreso();
     // this.nutricion=null;
+  }
+
+  progreso(){
+    this.aguaService.getProgress().subscribe(data=>{
+      this.progress = data;    
+      console.log(this.progress);
+      
+    })
   }
 
 }
