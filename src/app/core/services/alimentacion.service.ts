@@ -12,11 +12,13 @@ import { DatePipe } from '@angular/common';
 export class AlimentacionService {
 
   alimentacion: any[]=[];
-  progreso:any[]=[]
+  public progreso:any[]=[]
 
   constructor(private store: AngularFirestore,private  firestore: Firestore, 
     private tokenStorage:TokenStorageService, private datePipe: DatePipe
-    ) { }
+    ) { 
+      this.getProgress();
+    }
 
   getAll(): Observable<any>{
     this.alimentacion.splice(0,4);
@@ -61,8 +63,6 @@ export class AlimentacionService {
       return of(this.progreso)
     }
   
-    configuracion_alimentacion(){
-      
-    }
+   
 
 }

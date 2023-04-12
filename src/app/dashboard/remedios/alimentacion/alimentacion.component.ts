@@ -13,10 +13,10 @@ import Swal from 'sweetalert2';
 export class AlimentacionComponent implements OnInit {
 
   alimentacion!: any;
+  hora:any;
   form!: FormGroup;
   time = new Date();
   nutricion!: any;
-  hora:any;
   progress: any[] = [];
   suma: any;
   constructor(
@@ -27,10 +27,8 @@ export class AlimentacionComponent implements OnInit {
 
   ngOnInit(): void {
     this.hora=this.dataPipe.transform(Date.now(),'HH:mm');
-
     this.listaAlimentacion();
     this.create();
-    console.log('hora', this.hora);
     this.progreso();
     
   }
@@ -48,7 +46,6 @@ export class AlimentacionComponent implements OnInit {
   listaAlimentacion() {
     this.alimentacionService.getAll().subscribe(data=>{
       this.alimentacion = data;
-      console.log(this.alimentacion);
       
     })
   }
@@ -60,6 +57,8 @@ export class AlimentacionComponent implements OnInit {
   }
 
   save(data:any){
+    if(this.progress[this.progress.length-1]!=100){
+
     this.alimentacionService.create(data).pipe(
       finalize(() => {
         this.form.markAsPristine();
@@ -81,12 +80,22 @@ export class AlimentacionComponent implements OnInit {
     this.progreso();
     this.nutricion=null;
   }
+  else{
+   Swal.fire({
+     position: 'center',
+     icon: 'warning',
+     title: 'Ya completado',
+     // text: 'postivo'
+     showConfirmButton: false,
+     timer: 1500
+   });
+  }
+  }
 
   progreso(){
+    this.progress=[]
     this.alimentacionService.getProgress().subscribe(data=>{
-      this.progress = data;    
-      console.log(this.progress);
-      
+      this.progress = data;          
     })
   }
 

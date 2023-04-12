@@ -23,15 +23,23 @@
         <div class="p-3">
           <h4 class="card-title mb-0 text-uppercase ">{{ejer?.ejercicio_id==id?'Ejercicio: ':'Deporte: '}} {{ ejer?.nombre}}</h4>
         </div>
+        <div class="mt-2 container p-3" >
+          <label for="">MI PROGRESO DIARIO</label>
+            <ngb-progressbar style="height: 20px;" type="primary" [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
+        </div>
         <div class="card-body border-top">
            <form [formGroup]="form"(ngSubmit)="save(form.value)" >
             <mat-card>
                 <mat-card-content>
                   <div class="row d-flex justify-content-center  ">
+                    <div class="col-md-10 col-lg-10 mb-3" *ngIf="ejer?.nombre =='Otro'" >
+                        <label for="" class="text-uppercase">Tipo de Ejercicio</label>
+                        <input type="text" id="" formControlName="otro" placeholder="Ejm. Zumba, RaquetBol" class="form-control form-control-alternative">
+                    </div>
                     <div class="col-md-10 col-lg-10 mb-3">
                       <div class="form-group">
                         <label class="form-control-label mb-2">FECHA ACTUAL</label>
-                        <input type="date" id="" formControlName="fecha" [disabled]="'true'" class="form-control form-control-alternative">
+                        <input type="date" id="" formControlName="fecha" class="form-control form-control-alternative">
                       </div>
       
                     </div>

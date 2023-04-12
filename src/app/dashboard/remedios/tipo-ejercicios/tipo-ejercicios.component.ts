@@ -16,6 +16,7 @@ export class TipoEjerciciosComponent implements OnInit {
   ejercicio:any;
   form!: FormGroup;
   ejer:any;
+  progress: any[]=[];
 
   constructor(
     private route:ActivatedRoute,
@@ -27,12 +28,11 @@ export class TipoEjerciciosComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap
     .subscribe((paramMap: any) => {
-      this.id = paramMap.get('id');
-      console.log(this.id);    
+      this.id = paramMap.get('id'); 
     })
     this.listTipoEjercicio(this.id);
     this.create();
-
+    this.progreso()
   }
 
   create() {
@@ -41,14 +41,14 @@ export class TipoEjerciciosComponent implements OnInit {
       hora:[''],
       hora_inicio:[''],
       hora_fin:[''],
+      otro:[''],
       fecha:[this.dataPipe.transform(Date.now(),'yyyy-MM-dd')],
     })
   }
 
   listTipoEjercicio(id: any) {
     this.ejercicioService.getTipoEjercicio(id).subscribe(data=>{
-        this.ejercicio = data;
-        console.log(this.ejercicio);        
+        this.ejercicio = data;      
     })
   }
 
@@ -61,25 +61,46 @@ export class TipoEjerciciosComponent implements OnInit {
   }
 
   save(data:any){
-    this.ejercicioService.create(data).pipe(
-      finalize(() => {
-        this.form.markAsPristine();
-      })
-      ).subscribe(
-      data=>{
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Dato registrado con Exito',
-          // text: 'postivo',
-          text: data.succes,
-          showConfirmButton: false,
-          timer: 1500
-        });
-      }
-    )
-    this.listTipoEjercicio(this.id);
-    this.ejer=null;
+    if(this.progress[this.progress.length-1]!=100){
+
+      this.ejercicioService.create(data).pipe(
+        finalize(() => {
+          this.form.markAsPristine();
+        })
+        ).subscribe(
+        data=>{
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Dato registrado con Exito',
+            // text: 'postivo',
+            text: data.succes,
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
+      )
+      this.listTipoEjercicio(this.id);
+      this.progreso();
+    }
+    else{
+     Swal.fire({
+       position: 'center',
+       icon: 'warning',
+       title: 'Ya completado',
+       // text: 'postivo'
+       showConfirmButton: false,
+       timer: 1500
+     });
+    }
+
+  }
+
+  progreso(){
+    this.progress =[];
+    this.ejercicioService.getProgress().subscribe(data=>{
+      this.progress = data;    
+    })
   }
   
 

@@ -1,14 +1,25 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit, Inject } from '@angular/core';
+import { ConfService } from '../core/services/conf.service';
+// import { AnyRecord } from 'dns';
 //declare var require: any;
 
 @Component({
   templateUrl: './dashboard.component.html'
 })
-export class DashboardComponent implements AfterViewInit {
-  subtitle: string;
-  constructor() {
-    this.subtitle = 'This is some text within a card block.';
+export class DashboardComponent implements OnInit {
+  data:any;
+  constructor(
+    private conf: ConfService
+  ) {
+
   }
 
-  ngAfterViewInit() { }
+  ngOnInit(): void {
+    this.conf.getProgresoDiario().subscribe((data:any)=>{
+      console.log(data);   
+      this.data = data;   
+    })   
+    
+  }
+   
 }

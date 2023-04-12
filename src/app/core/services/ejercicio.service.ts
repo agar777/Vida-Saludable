@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { collection,query,orderBy, Firestore, addDoc, collectionData, onSnapshot } from '@angular/fire/firestore';
 import { Ejercicio } from '../models/ejercicio';
 import { TokenStorageService } from './token-storage.service';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,14 @@ import { TokenStorageService } from './token-storage.service';
 export class EjercicioService {
 
   ejercicio:any[]=[];
+  public progreso:any[]=[];
   tipo_ejercicio:any[]=[];
 
 
   constructor(private store: AngularFirestore,private  firestore: Firestore,
-    private tokenStorage: TokenStorageService ){ }
+    private tokenStorage: TokenStorageService,private datePipe: DatePipe ){ 
+      this.getProgress();
+    }
 
   getAll(): Observable<any>{
     this.ejercicio.splice(0,2);
@@ -38,7 +42,9 @@ export class EjercicioService {
         fecha:data['fecha'],
         hora:data['hora'],
         hora_inicio:data['hora_inicio'],      
-        hora_fin:data['hora_fin']      
+        hora_fin:data['hora_fin'],      
+        otro:data['otro'],      
+        progreso:100      
        }     
 
       return of(this.store.collection('h_ejercicio').add(ref))
@@ -46,7 +52,7 @@ export class EjercicioService {
     }
   
     getTipoEjercicio(id:any):Observable<any>{
-      this.tipo_ejercicio.splice(0,3);
+      this.tipo_ejercicio.splice(0,4);
       this.store.firestore.collection('tipo_ejercicio').where('ejercicio_id','==',id).onSnapshot({includeMetadataChanges:true},(snapshot)=>{
         snapshot.docChanges().forEach((change)=>{   
           if(change.type ==="added"){          
@@ -57,6 +63,23 @@ export class EjercicioService {
         let source = snapshot.metadata.fromCache ? "local cache" : "firebase server";
       })
       return of(this.tipo_ejercicio)
+    }
+
+    getProgress(): Observable<any>{
+      let suma = 0;      
+      this.progreso = []
+      this.store.firestore.collection('h_ejercicio').where('fecha','==',this.datePipe.transform(Date.now(),'yyyy-MM-dd')).where('user_id','==',this.tokenStorage.getId()).
+      onSnapshot({includeMetadataChanges:true},(snapshot)=>{
+        snapshot.docChanges().forEach((change)=>{   
+          if(change.type ==="added"){ 
+              suma += change.doc.get('progreso')
+              this.progreso.push(suma);  
+          }          
+        })        
+        let source = snapshot.metadata.fromCache ? "local cache" : "firebase server";
+      })
+    
+      return of(this.progreso)
     }
 
 }

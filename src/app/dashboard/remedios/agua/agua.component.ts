@@ -15,7 +15,8 @@ export class AguaComponent implements OnInit {
   form!:FormGroup;
   agua!:any; 
   progress: any;
-
+  count: any;
+  
   constructor(
     private aguaService: AguaService,
     private formBuilder: FormBuilder,
@@ -26,6 +27,13 @@ export class AguaComponent implements OnInit {
     this.listaAgua();
     this.create();
     this.progreso();
+    this.cantidadVasos()
+  }
+  cantidadVasos() {
+    this.aguaService.cantidadVasos().subscribe(data=>{
+      this.count = data;
+      
+    })
   }
 
   create() {
@@ -39,7 +47,6 @@ export class AguaComponent implements OnInit {
   listaAgua() {
     this.aguaService.getAll().subscribe(data=>{
       this.agua = data;
-      console.log(this.agua);
       
     })
   }
@@ -50,6 +57,7 @@ export class AguaComponent implements OnInit {
   }
 
   save(form:any){
+   if(this.progress[this.progress.length-1]!=100){
     this.aguaService.create(form).pipe(
       finalize(() => {
         this.form.markAsPristine();
@@ -69,14 +77,25 @@ export class AguaComponent implements OnInit {
     )
     this.listaAgua();
     this.progreso();
+    this.cantidadVasos();
+  }
+  else{
+   Swal.fire({
+     position: 'center',
+     icon: 'warning',
+     title: 'Ya completado',
+     // text: 'postivo'
+     showConfirmButton: false,
+     timer: 1500
+   });
+  }
     // this.nutricion=null;
   }
 
   progreso(){
+    this.progress=[]
     this.aguaService.getProgress().subscribe(data=>{
-      this.progress = data;    
-      console.log(this.progress);
-      
+      this.progress = data;          
     })
   }
 

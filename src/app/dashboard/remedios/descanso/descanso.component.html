@@ -9,6 +9,7 @@
                 </div>
                 <div class="ms-3">
                     <h3 class="mb-0 font-weight-bold">{{topcard.nombre}}</h3>
+                    <span>Recomendable: {{topcard.hora_inicio}}</span>
                 </div>
             </div>
         </div>
@@ -22,6 +23,10 @@
       <div class="card">
         <div class="p-3">
           <h4 class="card-title mb-0 text-uppercase">{{descanso?.nombre}}</h4>
+          <div class="mt-2" >
+            <label for="">MI PROGRESO DIARIO</label>
+              <ngb-progressbar style="height: 20px;" type="primary" [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
+          </div>
         </div>
         <div class="card-body border-top">
             <form [formGroup]="form"(ngSubmit)="save(form.value)" >
@@ -51,14 +56,22 @@
                               </label>
                             </div>
                             <div class="form-check">
-                              <input class="form-check-input" formControlName="descanso" value="false" type="radio" >
+                              <input class="form-check-input" formControlName="descanso" value="false" type="radio">
                               <label class="form-check-label" for="flexRadioDefault2">
                                 NO
                               </label>
                             </div>
                           </div>  
-                        </div>                        
-                        <div class="col-md-10">
+                        </div>   
+
+                        <div class="col-md-10" *ngIf="form.controls.descanso.value=='false'" >
+                            <div class="form-group">
+                              <label class="form-control-label">¿POR QUÉ?</label>
+                              <textarea name="" formControlName="porque" class="form-control form-control-alternative" id="" cols="5" rows="5"></textarea>
+                            </div>
+                        </div> 
+                                            
+                        <div class="col-md-10 mt-3 ">
                           <button
                             type="submit"
                             class="btn btn-primary btn-lg"

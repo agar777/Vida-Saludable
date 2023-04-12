@@ -10,6 +10,7 @@ import { TopSellingComponent } from "./dashboard-components/top-selling/top-sell
 import { TopCardsComponent } from "./dashboard-components/top-cards/top-cards.component";
 import { BlogCardsComponent } from "./dashboard-components/blog-cards/blog-cards.component";
 import { AngularFirestore } from "@angular/fire/compat/firestore";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 
 const routes: Routes = [
@@ -34,6 +35,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     NgApexchartsModule,
+    NgbModule
   ],
   declarations: [
     DashboardComponent,

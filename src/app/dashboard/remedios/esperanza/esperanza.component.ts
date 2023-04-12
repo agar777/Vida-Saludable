@@ -13,6 +13,7 @@ import { EsperanzaService } from '../../../core/services/esperanza.service';
 export class EsperanzaComponent implements OnInit {
 
   form!: FormGroup;
+  progress:any[]=[]
 
   constructor(
     private formBuilder:FormBuilder,
@@ -22,18 +23,21 @@ export class EsperanzaComponent implements OnInit {
 
   ngOnInit(): void {
     this.create();
+    this.progreso()
   }
 
   create() {
      this.form = this.formBuilder.group({
       fecha:[this.datePipe.transform(Date.now(),'yyyy-MM-dd')],
-      hora:[''],
+      hora:[this.datePipe.transform(Date.now(),'hh:mm')],
       orar:[''],
+      biblia:[''],
       pedido_oracion:['']    
     })
   }
 
   save(form:any){
+    if(this.progress[this.progress.length-1]!=99){
     this.esperanzaService.create(form).pipe(
       finalize(() => {
         this.form.markAsPristine();
@@ -49,8 +53,27 @@ export class EsperanzaComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         });
+        this.progreso();
       }
     )
+  }
+  else{
+   Swal.fire({
+     position: 'center',
+     icon: 'warning',
+     title: 'Ya completado',
+     // text: 'postivo'
+     showConfirmButton: false,
+     timer: 1500
+   });
+  }
+  }
+
+  progreso(){
+    this.progress = []
+    this.esperanzaService.getProgress().subscribe(data=>{
+      this.progress = data;        
+    })
   }
 
 }

@@ -16,6 +16,7 @@ export class DescansoComponent implements OnInit {
   form!:FormGroup
   hora:any;
   descanso:any;
+  progress: any[] = [];
 
   constructor(
     private descansoService:DescansoService,
@@ -29,13 +30,15 @@ export class DescansoComponent implements OnInit {
     
     this.listaDescanso();
     this.create();
+    this.progreso();
   }
 
   create() {
     this.form = this.formBuilder.group({
       descanso:[''],
       fecha:[this.datePipe.transform(Date.now(),'yyyy-MM-dd')],
-      hora:[''] 
+      hora:[this.datePipe.transform(Date.now(),'hh:mm')],
+      porque:[''] 
     })
   }
 
@@ -46,26 +49,47 @@ export class DescansoComponent implements OnInit {
   }
 
   save(form:any){
-    this.descansoService.create(form).pipe(
-      finalize(() => {
-        this.form.markAsPristine();
-      })
-      ).subscribe(
-      data=>{
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Dato registrado con Exito',
-          // text: 'postivo',
-          text: data.succes,
-          showConfirmButton: false,
-          timer: 1500
-        });
-      }
-    )
+    if(this.progress[this.progress.length-1]!=100){
+      this.descansoService.create(form).pipe(
+        finalize(() => {
+          this.form.markAsPristine();
+        })
+        ).subscribe(
+        data=>{
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Dato registrado con Exito',
+            // text: 'postivo',
+            text: data.succes,
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.progreso();
+          this.descanso = null
+        }
+      )
+    }else{
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'Ya completado',
+        // text: 'postivo'
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
   }
 
   eventClick(item: any){
     this.descanso = item
+  }
+
+  progreso(){
+    this.progress = []
+    this.descansoService.getProgress().subscribe(data=>{
+      this.progress = data;    
+      
+    })
   }
 }

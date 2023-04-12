@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EjercicioService } from '../../../core/services/ejercicio.service';
 import Swal from 'sweetalert2';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-ejercicio',
@@ -38,7 +39,6 @@ export class EjercicioComponent implements OnInit {
   listaEjercicio() {
     this.ejercicioService.getAll().subscribe(data=>{
       this.ejercicio = data;
-      console.log(this.ejercicio);
 
     })
   }
@@ -50,11 +50,5 @@ export class EjercicioComponent implements OnInit {
     
   }
 
-  save(data:any){
-    const response=this.ejercicioService.create(data);
-    console.log(data);
-    console.log(response);
-
-  }
 
 }

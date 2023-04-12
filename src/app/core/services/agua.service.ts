@@ -12,10 +12,13 @@ import { DatePipe } from '@angular/common';
 export class AguaService {
 
   agua:any[]=[]
-  progreso:any[]=[]
+  public progreso:any[]=[]
+  cantidad: any[]=[]
 
   constructor(private store: AngularFirestore,private  firestore: Firestore,
-    private tokenStorage: TokenStorageService, private datePipe: DatePipe) { }
+    private tokenStorage: TokenStorageService, private datePipe: DatePipe) {
+      this.getProgress();
+     }
 
   getAll(): Observable<any>{
     this.agua.splice(0,8);
@@ -43,6 +46,7 @@ export class AguaService {
     }
 
     getProgress(): Observable<any>{
+      this.progreso = []
       let suma = 0;      
       this.store.firestore.collection('h_agua').where('fecha','==',this.datePipe.transform(Date.now(),'yyyy-MM-dd')).where('user_id','==',this.tokenStorage.getId()) .onSnapshot({includeMetadataChanges:true},(snapshot)=>{
         snapshot.docChanges().forEach((change)=>{   
@@ -55,6 +59,23 @@ export class AguaService {
       })
     
       return of(this.progreso)
+    }
+
+    cantidadVasos(){
+      this.cantidad = []
+      let suma = 0;      
+      this.store.firestore.collection('h_agua').where('fecha','==',this.datePipe.transform(Date.now(),'yyyy-MM-dd')).where('user_id','==',this.tokenStorage.getId()).onSnapshot({includeMetadataChanges:true},(snapshot)=>{
+        snapshot.docChanges().forEach((change)=>{   
+          if(change.type ==="added"){ 
+            suma+= 1;
+            this.cantidad.push(suma);                       
+             
+          }          
+        })        
+        let source = snapshot.metadata.fromCache ? "local cache" : "firebase server";
+      })
+    
+      return of(this.cantidad)
     }
   
     
