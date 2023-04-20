@@ -13,6 +13,7 @@ export class AguaService {
 
   agua:any[]=[]
   public progreso:any[]=[]
+  public progresoD:any[]=[]
   cantidad: any[]=[]
 
   constructor(private store: AngularFirestore,private  firestore: Firestore,
@@ -59,6 +60,22 @@ export class AguaService {
       })
     
       return of(this.progreso)
+    }
+    
+    public getProgressD(date:any): Observable<any>{
+      this.progresoD = []
+      let suma = 0;      
+      this.store.firestore.collection('h_agua').where('fecha','==',date).where('user_id','==',this.tokenStorage.getId()) .onSnapshot({includeMetadataChanges:true},(snapshot)=>{
+        snapshot.docChanges().forEach((change)=>{   
+          if(change.type ==="added"){ 
+              suma += change.doc.get('progreso')
+              this.progresoD.push(suma);  
+          }          
+        })        
+        let source = snapshot.metadata.fromCache ? "local cache" : "firebase server";
+      })
+    
+      return of(this.progresoD)
     }
 
     cantidadVasos(){

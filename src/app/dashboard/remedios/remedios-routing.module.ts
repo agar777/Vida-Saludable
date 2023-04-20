@@ -8,6 +8,7 @@ import { LuzSolarComponent } from './luz-solar/luz-solar.component';
 import { DescansoComponent } from './descanso/descanso.component';
 import { EsperanzaComponent } from './esperanza/esperanza.component';
 import { ConfiguracionComponent } from './configuracion/configuracion.component';
+import { ProgresoComponent } from '../progreso/progreso.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
   {
     path:'configuracion-alimentacion',
     component: ConfiguracionComponent
+  },
+  {
+    path:'progreso',
+    component: ProgresoComponent
   },
 ];
 

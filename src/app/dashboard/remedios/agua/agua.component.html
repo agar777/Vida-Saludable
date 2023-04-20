@@ -6,8 +6,10 @@
   </div>
   <div class="mt-2 mb-5" >
     <label for="">MI PROGRESO DIARIO</label>
-      <ngb-progressbar style="height: 20px;" type="primary" [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
-  </div>
+            <ngb-progressbar *ngIf="progress[progress.length-1]<38" style="height: 20px;" type="danger"  [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
+            <ngb-progressbar *ngIf="progress[progress.length-1]>38 && progress[progress.length-1]<=50" style="height: 20px;" type="warning"  [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
+            <ngb-progressbar *ngIf="progress[progress.length-1]>50" style="height: 20px;" type="success"  [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
+   </div>
   <div class="col-md-6 col-lg-3" *ngFor='let topcard of agua'>
      <a (click)="evento(topcard.agua_id)">
       <div class="card">

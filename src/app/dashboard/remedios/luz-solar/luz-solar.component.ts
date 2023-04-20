@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 import Swal from 'sweetalert2';
 import { LuzSolarService } from '../../../core/services/luz-solar.service';
@@ -34,7 +34,7 @@ export class LuzSolarComponent implements OnInit {
     this.form = this.formBuilder.group({
       fecha:[this.datePipe.transform(Date.now(),'yyyy-MM-dd')],
       hora_inicio:[this.datePipe.transform(Date.now(),'hh:mm')],
-      hora:[''],
+      hora:['', Validators.required],
       luzSolar_id:['']
     })
   }
@@ -78,9 +78,12 @@ export class LuzSolarComponent implements OnInit {
   }
 
   progreso(){
-    this.luzSolarService.getProgress().subscribe(data=>{
-      this.progress = data;          
-    })
+    if (this.form.controls.hora.value >= "00:25:00:00") {
+
+      this.luzSolarService.getProgress().subscribe(data=>{
+        this.progress = data;          
+      })
+    }
   }
   
   horarios(){

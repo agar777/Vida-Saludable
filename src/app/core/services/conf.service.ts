@@ -19,6 +19,7 @@ export class ConfService {
 
   // alimentacion: any[]=[];
   progreso:any[]=[]
+  progresoD:any[]=[]
 
   constructor(
     private agua: AguaService,

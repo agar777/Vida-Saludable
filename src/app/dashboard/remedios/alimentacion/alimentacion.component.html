@@ -24,9 +24,11 @@
       <div class="p-3">
         <h4 class="card-title mb-0 text-uppercase ">ALIMENTACIÓN: {{nutricion?.nombre}}</h4>
         <span *ngIf="nutricion?.nutricion_id !=4" >{{nutricion?.hora_inicio}} - {{nutricion?.hora_fin}} </span>
-        <div class="mt-2" >
+        <div class="mt-2"*ngIf="nutricion?.nutricion_id !=4"  >
           <label for="">MI PROGRESO DIARIO</label>
-            <ngb-progressbar style="height: 20px;" type="primary" [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
+            <ngb-progressbar *ngIf="progress[progress.length-1]<=34" style="height: 20px;" type="danger"  [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
+            <ngb-progressbar *ngIf="progress[progress.length-1]>34 && progress[progress.length-1]<=67" style="height: 20px;" type="warning"  [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
+            <ngb-progressbar *ngIf="progress[progress.length-1]>67" style="height: 20px;" type="success"  [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
         </div>
       </div>
       <div class="card-body border-top">
@@ -48,8 +50,8 @@
                       </div>
                           
                     </div>
-                    <div class="col-md-10 col-lg-10 mb-3">
-                      <div class="form-group ">
+                    <div class="col-md-10 col-lg-10 mb-3" *ngIf="nutricion?.nutricion_id!=4" >
+                      <div class="form-group">
                         <label class="form-control-label" for="input-username">SALUDABLE</label>
                         <div class="form-check">
                           <input class="form-check-input" formControlName="saludable" value="true" type="radio" checked>

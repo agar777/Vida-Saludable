@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SwPush } from '@angular/service-worker';
+import { NotificacionesService } from './core/services/notificaciones.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent {
   /**
    *
    */
-  constructor(private swPush:SwPush ) {
+  constructor(private swPush:SwPush, private notificacionService: NotificacionesService ) {
     this.subscribeToNotifications();
   }
 
@@ -23,6 +24,9 @@ export class AppComponent {
     }).then(data=>{
       const token = JSON.parse(JSON.stringify(data))
       console.log('OJO',token);
+      this.notificacionService.saveToken(token).subscribe((data)=>{
+        console.log(data);
+      })
       
     })
   }

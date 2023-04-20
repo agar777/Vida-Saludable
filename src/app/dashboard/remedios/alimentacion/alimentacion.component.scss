@@ -9,3 +9,8 @@
   cursor: not-allowed;
   pointer-events: none;
 }
+
+.bg-progress{
+  background: rgb(227,3,3);
+background: linear-gradient(90deg, rgba(227,3,3,1) 0%, rgba(104,14,231,1) 100%);
+}

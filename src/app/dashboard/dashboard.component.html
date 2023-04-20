@@ -15,7 +15,7 @@
           <div>
             <ul class="list-group" *ngFor="let item of data" >
               <li class="list-group-item text-uppercase p-2 ">{{item?.nombre}}
-                <ngb-progressbar *ngIf="item?.data.length !=0"style="height: 20px;" type="primary" [value]="item?.data[item?.data.length-1]">{{item?.data[item?.data.length-1] }}%</ngb-progressbar>
+                <ngb-progressbar *ngIf="item?.data.length !=0"style="height: 20px;" type="success" [value]="item?.data[item?.data.length-1]">{{item?.data[item?.data.length-1] }}%</ngb-progressbar>
                 <ngb-progressbar *ngIf="item?.data.length ==0" style="height: 20px;" type="danger" [value]="item?.data[item?.data.length-1]">{{item?.data[item?.data.length-1] }}%</ngb-progressbar>
               </li>
             </ul>

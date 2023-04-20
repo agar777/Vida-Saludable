@@ -97,10 +97,12 @@ export class TipoEjerciciosComponent implements OnInit {
   }
 
   progreso(){
-    this.progress =[];
+    if (this.form.controls.hora.value >= "00:30:00:00") {
+      this.progress =[];
     this.ejercicioService.getProgress().subscribe(data=>{
       this.progress = data;    
     })
+    }
   }
   
 

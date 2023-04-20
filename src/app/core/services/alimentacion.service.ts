@@ -13,6 +13,8 @@ export class AlimentacionService {
 
   alimentacion: any[]=[];
   public progreso:any[]=[]
+  public progresoD:any[]=[]
+
 
   constructor(private store: AngularFirestore,private  firestore: Firestore, 
     private tokenStorage:TokenStorageService, private datePipe: DatePipe

@@ -43,7 +43,7 @@ const routes: Routes = [
     FeedsComponent,
     TopSellingComponent,
     TopCardsComponent,
-    BlogCardsComponent
+    BlogCardsComponent,
   ],
   providers: [AngularFirestore],
 

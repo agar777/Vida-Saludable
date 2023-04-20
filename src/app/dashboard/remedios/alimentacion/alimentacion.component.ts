@@ -54,10 +54,14 @@ export class AlimentacionComponent implements OnInit {
       this.nutricion= item
       this.form.controls.nutricion_id.setValue(item.nutricion_id);
       this.form.controls.progreso.setValue(item.progreso);
+
+      if(item.nutricion_id==4){
+         this.form.controls.saludable.setValue("false");
+      }
   }
 
   save(data:any){
-    if(this.progress[this.progress.length-1]!=100){
+    // if(this.progress[this.progress.length-1]!=100){
 
     this.alimentacionService.create(data).pipe(
       finalize(() => {
@@ -80,17 +84,17 @@ export class AlimentacionComponent implements OnInit {
     this.progreso();
     this.nutricion=null;
   }
-  else{
-   Swal.fire({
-     position: 'center',
-     icon: 'warning',
-     title: 'Ya completado',
-     // text: 'postivo'
-     showConfirmButton: false,
-     timer: 1500
-   });
-  }
-  }
+  // else{
+  //  Swal.fire({
+  //    position: 'center',
+  //    icon: 'warning',
+  //    title: 'Ya completado',
+  //    // text: 'postivo'
+  //    showConfirmButton: false,
+  //    timer: 1500
+  //  });   
+  // }
+  
 
   progreso(){
     this.progress=[]

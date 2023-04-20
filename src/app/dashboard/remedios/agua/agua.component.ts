@@ -57,7 +57,7 @@ export class AguaComponent implements OnInit {
   }
 
   save(form:any){
-   if(this.progress[this.progress.length-1]!=100){
+  //  if(this.progress[this.progress.length-1]!=100){
     this.aguaService.create(form).pipe(
       finalize(() => {
         this.form.markAsPristine();
@@ -79,18 +79,18 @@ export class AguaComponent implements OnInit {
     this.progreso();
     this.cantidadVasos();
   }
-  else{
-   Swal.fire({
-     position: 'center',
-     icon: 'warning',
-     title: 'Ya completado',
-     // text: 'postivo'
-     showConfirmButton: false,
-     timer: 1500
-   });
-  }
+  // else{
+  //  Swal.fire({
+  //    position: 'center',
+  //    icon: 'warning',
+  //    title: 'Ya completado',
+  //    // text: 'postivo'
+  //    showConfirmButton: false,
+  //    timer: 1500
+  //  });
+  // }
     // this.nutricion=null;
-  }
+  // }
 
   progreso(){
     this.progress=[]

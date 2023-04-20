@@ -15,6 +15,7 @@ import { LuzSolarComponent } from './luz-solar/luz-solar.component';
 import { DescansoComponent } from './descanso/descanso.component';
 import { EsperanzaComponent } from './esperanza/esperanza.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProgresoComponent } from '../progreso/progreso.component';
 
 // import{} from'@angular/flex-layout'
 @NgModule({
@@ -27,7 +28,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CronometroComponent,
     LuzSolarComponent,
     DescansoComponent,
-    EsperanzaComponent
+    EsperanzaComponent,
+    ProgresoComponent
   ],
   imports: [
     CommonModule,
