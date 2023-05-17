@@ -31,6 +31,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -68,6 +69,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       registrationStrategy: 'registerWhenStable:30000'
     }),
     AngularFirestoreModule.enablePersistence(),
+    AngularFireMessagingModule
   ],
   providers: [
     AngularFirestore,

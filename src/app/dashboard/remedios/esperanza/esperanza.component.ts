@@ -14,6 +14,7 @@ export class EsperanzaComponent implements OnInit {
 
   form!: FormGroup;
   progress:any[]=[]
+  esperanza: any;
 
   constructor(
     private formBuilder:FormBuilder,
@@ -23,18 +24,28 @@ export class EsperanzaComponent implements OnInit {
 
   ngOnInit(): void {
     this.create();
+    this.getAll();
     this.progreso()
+  }
+
+  getAll() {
+    this.esperanzaService.getAll().subscribe(data=>{
+      this.esperanza = data;
+    })
   }
 
   create() {
      this.form = this.formBuilder.group({
       fecha:[this.datePipe.transform(Date.now(),'yyyy-MM-dd')],
-      hora:[this.datePipe.transform(Date.now(),'hh:mm')],
-      orar:[''],
-      biblia:[''],
-      pedido_oracion:['']    
+      hora:[this.datePipe.transform(Date.now(),'hh:mm')],  
+      esperanza_id:['']
     })
   }
+
+  evento(item:any){
+    this.form.controls.esperanza_id.setValue(item);
+      this.save(this.form.value);   
+}
 
   save(form:any){
     if(this.progress[this.progress.length-1]!=99){

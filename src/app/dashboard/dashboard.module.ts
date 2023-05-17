@@ -11,6 +11,7 @@ import { TopCardsComponent } from "./dashboard-components/top-cards/top-cards.co
 import { BlogCardsComponent } from "./dashboard-components/blog-cards/blog-cards.component";
 import { AngularFirestore } from "@angular/fire/compat/firestore";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { CongratulationComponent } from './congratulation/congratulation.component';
 
 
 const routes: Routes = [
@@ -37,6 +38,9 @@ const routes: Routes = [
     NgApexchartsModule,
     NgbModule
   ],
+  exports:[
+      CongratulationComponent
+  ],
   declarations: [
     DashboardComponent,
     SalesRatioComponent,
@@ -44,6 +48,7 @@ const routes: Routes = [
     TopSellingComponent,
     TopCardsComponent,
     BlogCardsComponent,
+    CongratulationComponent,
   ],
   providers: [AngularFirestore],
 

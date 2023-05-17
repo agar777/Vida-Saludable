@@ -16,6 +16,7 @@ import { DescansoComponent } from './descanso/descanso.component';
 import { EsperanzaComponent } from './esperanza/esperanza.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProgresoComponent } from '../progreso/progreso.component';
+import { DashboardModule } from '../dashboard.module';
 
 // import{} from'@angular/flex-layout'
 @NgModule({
@@ -37,7 +38,8 @@ import { ProgresoComponent } from '../progreso/progreso.component';
     FormsModule,
     ReactiveFormsModule,
     WebMaterialModule,
-    NgbModule
+    NgbModule,
+    DashboardModule
   ],
   providers: [
   AngularFirestore,

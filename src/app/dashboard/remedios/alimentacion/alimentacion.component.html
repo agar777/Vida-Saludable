@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-6 col-lg-3" *ngFor='let topcard of alimentacion'>
-     <a (click)="eventClick(topcard)">
+     <a (click)="eventClick(topcard)" (click)="expression" >
       <div class="card">
         <div class="card-body">
             <div class="d-flex align-items-center">
@@ -36,6 +36,7 @@
               <mat-card *ngIf="nutricion?.nutricion_id!=null; else alert">          
                 <mat-card-content *ngIf="nutricion?.hora_inicio>=hora ||nutricion?.hora_fin>=hora; else message" >                
                   <div class="row d-flex justify-content-center">
+                    <app-congratulation *ngIf="progress[progress.length-1]==100"></app-congratulation>
                     <div class="col-md-10 col-lg-10 mb-3">
                       <div class="form-group">
                         <label class="form-control-label">FECHA ACTUAL</label>

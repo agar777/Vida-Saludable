@@ -43,6 +43,7 @@ export class TipoEjerciciosComponent implements OnInit {
       hora_fin:[''],
       otro:[''],
       fecha:[this.dataPipe.transform(Date.now(),'yyyy-MM-dd')],
+      progreso:[''],
     })
   }
 
@@ -55,13 +56,17 @@ export class TipoEjerciciosComponent implements OnInit {
   eventClick(item:any){
     this.ejer = item
     this.form.controls.ejercicio_id.setValue(item.ejercicio_id);
+    if(this.id ==1){
+      this.form.controls.progreso.setValue(100)
+    }
+
   }
   tiempo(item:any){
     this.form.controls.hora.setValue(item);    
   }
 
   save(data:any){
-    if(this.progress[this.progress.length-1]!=100){
+    if(this.form.controls.hora.value >= "00:30:00:00"){
 
       this.ejercicioService.create(data).pipe(
         finalize(() => {
@@ -78,16 +83,17 @@ export class TipoEjerciciosComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
           });
+
+          this.listTipoEjercicio(this.id);
+          this.progreso();
         }
       )
-      this.listTipoEjercicio(this.id);
-      this.progreso();
     }
     else{
      Swal.fire({
        position: 'center',
        icon: 'warning',
-       title: 'Ya completado',
+       title: 'Complete la hora recomendada',
        // text: 'postivo'
        showConfirmButton: false,
        timer: 1500
@@ -97,12 +103,13 @@ export class TipoEjerciciosComponent implements OnInit {
   }
 
   progreso(){
-    if (this.form.controls.hora.value >= "00:30:00:00") {
+    // if (this.form.controls.hora.value >= "00:30:00:00") {
       this.progress =[];
     this.ejercicioService.getProgress().subscribe(data=>{
       this.progress = data;    
+      console.log(this.progress);
+      
     })
-    }
   }
   
 

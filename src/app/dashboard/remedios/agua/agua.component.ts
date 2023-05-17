@@ -93,9 +93,11 @@ export class AguaComponent implements OnInit {
   // }
 
   progreso(){
-    this.progress=[]
+    // this.progress=[]
     this.aguaService.getProgress().subscribe(data=>{
-      this.progress = data;          
+      this.progress = data;   
+      console.log(this.progress);
+             
     })
   }
 

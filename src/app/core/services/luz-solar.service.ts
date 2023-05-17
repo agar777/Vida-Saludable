@@ -12,10 +12,12 @@ import { DatePipe } from '@angular/common';
 export class LuzSolarService {
 
   public progreso:any[]=[]
+  public progresoD:any[]=[]
   horario_:any[]=[]
 
   constructor(private store: AngularFirestore,private firestore: Firestore,
     private tokenStorage: TokenStorageService,private datePipe: DatePipe ){ 
+      this.progreso.splice(0,0);
       this.getProgress();
     }
 
@@ -25,7 +27,6 @@ export class LuzSolarService {
         fecha:data['fecha'],
         hora:data['hora'],
         progreso: 100
-
        }     
 
       return of(this.store.collection('luz_solar').add(ref))
@@ -33,13 +34,14 @@ export class LuzSolarService {
     }
 
     getProgress(): Observable<any>{
-      let suma = 0;      
+      let suma = 0;   
+      this.progreso.splice(0,0);
+
       this.store.firestore.collection('luz_solar').where('fecha','==',this.datePipe.transform(Date.now(),'yyyy-MM-dd')).where('user_id','==',this.tokenStorage.getId()).
       onSnapshot({includeMetadataChanges:true},(snapshot)=>{
         snapshot.docChanges().forEach((change)=>{   
-          if(change.type ==="added"){ 
-              suma += change.doc.get('progreso')
-              this.progreso.push(suma);  
+          if(change.type ==="added"){               
+              this.progreso.push(change.doc.get('progreso'));  
           }          
         })        
         let source = snapshot.metadata.fromCache ? "local cache" : "firebase server";
@@ -47,6 +49,24 @@ export class LuzSolarService {
     
       return of(this.progreso)
     }
+
+    public getProgressD(date : any){
+      let suma = 0;      
+      this.progresoD = []
+      this.store.firestore.collection('luz_solar').where('fecha','==',date).where('user_id','==',this.tokenStorage.getId()).
+      onSnapshot({includeMetadataChanges:true},(snapshot)=>{
+        snapshot.docChanges().forEach((change)=>{   
+          if(change.type ==="added"){ 
+              suma += change.doc.get('progreso')
+              this.progresoD.push(suma);  
+          }          
+        })        
+        let source = snapshot.metadata.fromCache ? "local cache" : "firebase server";
+      })
+    
+      return this.progresoD
+    }
+
 
     horario(): Observable<any>{
       this.horario_.splice(0,1);

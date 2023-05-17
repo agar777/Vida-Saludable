@@ -15,7 +15,8 @@
         </div>
         <div class="mt-2 p-2" >
           <label for="">MI PROGRESO DIARIO</label>
-            <ngb-progressbar style="height: 20px;" type="primary" [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
+          <ngb-progressbar style="height: 20px;" type="success" *ngIf="progress[progress.length-1] ==100" [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
+          <ngb-progressbar style="height: 20px;" type="danger" *ngIf="progress[progress.length-1] !=100" [value]="progress[progress.length-1]">0%</ngb-progressbar>
         </div>
         
         <div class="card-body border-top">
@@ -23,6 +24,7 @@
                 <mat-card>
                     <mat-card-content>
                       <div class="row d-flex justify-content-center  ">
+                        <app-congratulation *ngIf="progress[progress.length-1]==100"></app-congratulation>
                         <div class="col-md-5 col-lg-5 mb-3">
                           <div class="form-group">
                             <label class="form-control-label mb-2">FECHA ACTUAL</label>
@@ -59,3 +61,4 @@
       </div>
     </div>
   </div>
+  

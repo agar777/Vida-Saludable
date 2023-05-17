@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../../core/services/token-storage.service';
 import { AuthService } from '../../core/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -42,11 +43,24 @@ export class LoginComponent implements OnInit {
            this.tokenStorage.saveUser(this.credentials.providerData);
            this.tokenStorage.saveId(this.credentials.uid);
            if(this.credentials.accessToken){
-                    this.router.navigate(['/dashboard']);
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Bienvenido',
+              showConfirmButton: false,
+            })
+                  this.router.navigate(['/dashboard']);
              }
           }
         )
-        .catch(error=> console.log(error));
+        .catch(error=> {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: 'Usuario no encontrado',
+            showConfirmButton: false,
+          })
+        });
   }
 
 }

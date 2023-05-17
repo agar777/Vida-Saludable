@@ -13,17 +13,19 @@ export class DescansoService {
 
   descanso: any[]=[];
   public progreso:any[]=[]
+  public progresoD:any[]=[]
 
 
   constructor(private store: AngularFirestore,private  firestore: Firestore, 
     private tokenStorage:TokenStorageService, private datePipe: DatePipe
     ) { 
+      this.progreso.splice(0,0);
       this.getProgress();
     }
 
   getAll(): Observable<any>{
     this.descanso.splice(0,2);
-    this.store.firestore.collection('descanso').orderBy('descanso_id', 'desc').onSnapshot({includeMetadataChanges:true},(snapshot)=>{
+    this.store.firestore.collection('descanso').orderBy('descanso_id').onSnapshot({includeMetadataChanges:true},(snapshot)=>{
       snapshot.docChanges().forEach((change)=>{   
         if(change.type ==="added"){          
             this.descanso.push(change.doc.data());                        
@@ -50,6 +52,7 @@ export class DescansoService {
   
     getProgress(): Observable<any>{
       let suma = 0;      
+      this.progreso.splice(0,0);
       this.store.firestore.collection('h_descanso').where('fecha','==',this.datePipe.transform(Date.now(),'yyyy-MM-dd')).where('user_id','==',this.tokenStorage.getId()).
       onSnapshot({includeMetadataChanges:true},(snapshot)=>{
         snapshot.docChanges().forEach((change)=>{   
@@ -64,5 +67,21 @@ export class DescansoService {
       return of(this.progreso)
     }
     
+    public getProgressD(date:any){
+      this.progresoD = []
+      let suma = 0;      
+      this.store.firestore.collection('h_descanso').where('fecha','==',date).where('user_id','==',this.tokenStorage.getId()).
+      onSnapshot({includeMetadataChanges:true},(snapshot)=>{
+        snapshot.docChanges().forEach((change)=>{   
+          if(change.type ==="added"){ 
+              suma += change.doc.get('progreso')
+              this.progresoD.push(suma);  
+          }          
+        })        
+        let source = snapshot.metadata.fromCache ? "local cache" : "firebase server";
+      })
+    
+      return this.progresoD
+    }
 
 }

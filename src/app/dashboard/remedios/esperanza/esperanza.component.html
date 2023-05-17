@@ -12,81 +12,34 @@
         </div>
         <div class="mt-2 p-2" >
           <label for="">MI PROGRESO DIARIO</label>
-            <ngb-progressbar style="height: 20px;" type="primary" [value]="progress[progress.length-1]">{{progress[progress.length-1] == 66? progress[progress.length-1] : progress[progress.length-1]+1 }}%</ngb-progressbar>
+          <ngb-progressbar style="height: 20px;" *ngIf="progress[progress.length-1] ==100 && progress[progress.length-1] >=75" type="success" [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
+          <ngb-progressbar style="height: 20px;" *ngIf="progress[progress.length-1] >=50 && progress[progress.length-1] <=75" type="warning" [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
+          <ngb-progressbar style="height: 20px;" *ngIf="progress[progress.length-1] < 50 " type="danger" [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
+
         </div>
-        <div class="card-body border-top">
-            <form [formGroup]="form"(ngSubmit)="save(form.value)" >
-                <mat-card>
-                    <mat-card-content>
-                      <div class="row d-flex justify-content-center  ">
-                        <div class="col-md-5 col-lg-5 mb-3">
-                          <div class="form-group">
-                            <label class="form-control-label mb-2">FECHA ACTUAL</label>
-                            <input type="date" id="" formControlName="fecha" class="form-control form-control-alternative">
-                          </div>          
-                        </div>
-                        <div class="col-md-5 col-lg-5 mb-3">
-                          <div class="form-group">
-                            <label class="form-control-label mb-2">HORA ACTUAL</label>
-                            <input type="time" id="" formControlName="hora" class="form-control form-control-alternative">
-                          </div>
-                        </div>
-                        <div class="col-md-10 col-lg-10 mb-3 mt-3">
-                            <div class="form-group ">
-                              <label class="form-control-label" for="input-username">¿HOY ORO?</label>
-                              <div class="form-check">
-                                <input class="form-check-input" formControlName="orar" value="true" type="radio" checked>
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                  SI
-                                </label>
-                              </div>
-                              <div class="form-check">
-                                <input class="form-check-input" formControlName="orar" value="false" type="radio" >
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                  NO
-                                </label>
-                              </div>
-                            </div>  
-                          </div>  
-                          <div class="col-md-10 col-lg-10 mb-3 mt-3">
-                            <div class="form-group ">
-                              <label class="form-control-label" for="input-username">¿HOY ESTUDIO LA BIBLIA?</label>
-                              <div class="form-check">
-                                <input class="form-check-input" formControlName="biblia" value="true" type="radio" checked>
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                  SI
-                                </label>
-                              </div>
-                              <div class="form-check">
-                                <input class="form-check-input" formControlName="biblia" value="false" type="radio" >
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                  NO
-                                </label>
-                              </div>
-                            </div>  
-                          </div>  
-                          <div class="col-md-10 col-lg-10 mb-3 mt-3">
-                            <div class="form-group">
-                                <label class="form-control-label mb-2">PEDIDO DE ORACIÓN</label>
-                                <textarea type="text" id="" formControlName="pedido_oracion" class="form-control form-control-alternative">                                    
-                                </textarea>
-                              </div>
-                          </div>                      
-                        <div class="col-md-10">
-                          <button
-                            type="submit"
-                            class="btn btn-primary btn-lg"
-                            [disabled]="form.invalid"
-                          >
-                            Guardar
-                          </button>
-                      </div>
-                      </div>
-                    </mat-card-content>              
-                    
-                  </mat-card>
-               </form>
+        
         </div>
       </div>
-    </div>
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-6 col-lg-4" *ngFor='let topcard of esperanza'>
+          <a (click)="evento(topcard.esperanza_id)">
+           <div class="card">
+                    <app-congratulation *ngIf="progress[progress.length-1]==100"></app-congratulation>
+
+             <div class="card-body">
+                 <div class="d-flex align-items-center">
+                     <div class="btn btn-lg rounded-circle round round-lg fs-6 d-flex align-items-center justify-content-center bg-light-info">
+                         <img src="../../../../assets/images/esperanza/{{topcard.icon}}" width="50px" alt="">
+                     </div>
+                     <div class="ms-3">
+                         <h3 class="mb-0 font-weight-bold">{{topcard.nombre}}</h3>
+                         <span>{{topcard.hora_inicio}}</span>
+                     </div>
+                 </div>
+             </div>
+           </div>
+          </a>
+       </div>
+      </div>
+
   </div>

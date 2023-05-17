@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { AlimentacionService } from '../../../core/services/alimentacion.service';
 import Swal from 'sweetalert2';
+import { NotificacionesFireService } from '../../../core/services/notificaciones-fire.service';
 
 @Component({
   selector: 'app-alimentacion',
@@ -22,15 +23,33 @@ export class AlimentacionComponent implements OnInit {
   constructor(
     private alimentacionService: AlimentacionService,
     private formBuilder: FormBuilder,
-    private dataPipe: DatePipe
-  ) { }
+    private dataPipe: DatePipe,
+    private fireNoti: NotificacionesFireService
+  ) {
+    this.hora=this.dataPipe.transform(Date.now(),'HH:mm');
+
+        switch (this.hora) {
+          case '08:00':
+              this.fireNoti.sendPushNotification("Hora de Desayunar","Llego la hora de un desayuno saludable")
+            break;
+            case '12:30':
+              this.fireNoti.sendPushNotification("Hora de Almorzar","Llego la hora de un almuerzo saludable")
+            break;
+            case '18:30':
+              this.fireNoti.sendPushNotification("Hora de Cenar","Llego la hora de una cena saludable")
+            break;
+          default:
+            break;
+        }
+
+   }
 
   ngOnInit(): void {
-    this.hora=this.dataPipe.transform(Date.now(),'HH:mm');
     this.listaAlimentacion();
     this.create();
     this.progreso();
-    
+    this.fireNoti.receiveMessages();
+
   }
 
   create() {
@@ -53,7 +72,9 @@ export class AlimentacionComponent implements OnInit {
   eventClick(item: any){
       this.nutricion= item
       this.form.controls.nutricion_id.setValue(item.nutricion_id);
-      this.form.controls.progreso.setValue(item.progreso);
+      if(item.nutricion_id!=4){
+        this.form.controls.progreso.setValue(item.progreso);
+      }
 
       if(item.nutricion_id==4){
          this.form.controls.saludable.setValue("false");

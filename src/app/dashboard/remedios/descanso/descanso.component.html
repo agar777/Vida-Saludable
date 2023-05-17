@@ -13,6 +13,7 @@
                 </div>
             </div>
         </div>
+        <app-congratulation *ngIf="progress[progress.length-1]==100"></app-congratulation>
       </div>
      </a>
   </div>
@@ -25,7 +26,9 @@
           <h4 class="card-title mb-0 text-uppercase">{{descanso?.nombre}}</h4>
           <div class="mt-2" >
             <label for="">MI PROGRESO DIARIO</label>
-              <ngb-progressbar style="height: 20px;" type="primary" [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
+            <ngb-progressbar style="height: 20px;" type="success" *ngIf="progress[progress.length-1] ==100" [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
+            <ngb-progressbar style="height: 20px;" type="warning" *ngIf="progress[progress.length-1] ==50" [value]="progress[progress.length-1]">0%</ngb-progressbar>
+            <ngb-progressbar style="height: 20px;" type="danger" *ngIf="progress[progress.length-1] < 50" [value]="progress[progress.length-1]">0%</ngb-progressbar>
           </div>
         </div>
         <div class="card-body border-top">
@@ -46,7 +49,7 @@
                             <input type="time" formControlName="hora" class="form-control form-control-alternative">
                           </div>
                         </div>  
-                        <div class="col-md-10 col-lg-10 mb-3 mt-3">
+                        <div class="col-md-10 col-lg-10 mb-3 mt-3" *ngIf="descanso?.descanso_id == 2" >
                           <div class="form-group ">
                             <label class="form-control-label" for="input-username">{{descanso?.descanso_id=='1'? '¿DURMIÓ BIEN?':'¿DESCANSO BIEN?'}}</label>
                             <div class="form-check">

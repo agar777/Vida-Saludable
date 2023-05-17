@@ -13,7 +13,7 @@ import { LuzSolarService } from '../../../core/services/luz-solar.service';
 export class LuzSolarComponent implements OnInit {
 
   form!:FormGroup;
-  progress: any[] = [];
+  progress:any[]=[]
   horario: any;
   hora:any;
 
@@ -40,7 +40,7 @@ export class LuzSolarComponent implements OnInit {
   }
 
   save(form:any){
-   if(this.progress[this.progress.length-1]!=100){
+   if(this.form.controls.hora.value >= "00:25:00:00"){
     this.luzSolarService.create(form).pipe(
       finalize(() => {
         this.form.markAsPristine();
@@ -57,7 +57,8 @@ export class LuzSolarComponent implements OnInit {
           timer: 1500
         });
 
-        this.progreso();        
+        this.progreso();      
+        this.horarios();  
       }
     )
    }
@@ -65,7 +66,7 @@ export class LuzSolarComponent implements OnInit {
     Swal.fire({
       position: 'center',
       icon: 'warning',
-      title: 'Ya completado',
+      title: 'Necesitas completar el tiempo predeterminado',
       // text: 'postivo'
       showConfirmButton: false,
       timer: 1500
@@ -78,16 +79,17 @@ export class LuzSolarComponent implements OnInit {
   }
 
   progreso(){
-    if (this.form.controls.hora.value >= "00:25:00:00") {
+    // if (this.form.controls.hora.value >= "00:25:00:00") {
 
       this.luzSolarService.getProgress().subscribe(data=>{
-        this.progress = data;          
+        this.progress = data;  
+        console.log(this.progress);
+                
       })
-    }
+    // }
   }
   
   horarios(){
-    this.progress = []
     this.luzSolarService.horario().subscribe(data=>{
       this.horario = data;
     })

@@ -44,6 +44,20 @@ export class ConfService {
       return of(this.progreso)
     }
 
+
+    getProgresoAll(fecha: any):Observable<any>{
+      this.progresoD = []
+      this.progresoD.push(
+        { 'nombre': 'agua', 'data': this.agua.getProgressD(fecha)},
+        {'nombre':'alimentacion', 'data': this.alimentacion.getProgressD(fecha)},
+        {'nombre':'descanso', 'data': this.descanso.getProgressD(fecha)},
+        {'nombre':'ejercicio', 'data': this.ejercicio.getProgressD(fecha)},
+        {'nombre':'esperanza', 'data': this.esperanza.getProgressD(fecha)},
+        {'nombre':'luz', 'data': this.luz.getProgressD(fecha)},
+      )
+      return of(this.progresoD)
+    }
+
   
 
 }

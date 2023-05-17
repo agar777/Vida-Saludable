@@ -13,11 +13,13 @@ export class EjercicioService {
 
   ejercicio:any[]=[];
   public progreso:any[]=[];
+  public progresoD:any[]=[];
   tipo_ejercicio:any[]=[];
 
 
   constructor(private store: AngularFirestore,private  firestore: Firestore,
-    private tokenStorage: TokenStorageService,private datePipe: DatePipe ){ 
+    private tokenStorage: TokenStorageService,private datePipe: DatePipe ){
+      this.progreso.splice(0,0);
       this.getProgress();
     }
 
@@ -44,7 +46,7 @@ export class EjercicioService {
         hora_inicio:data['hora_inicio'],      
         hora_fin:data['hora_fin'],      
         otro:data['otro'],      
-        progreso:100      
+        progreso:data['progreso']      
        }     
 
       return of(this.store.collection('h_ejercicio').add(ref))
@@ -67,7 +69,7 @@ export class EjercicioService {
 
     getProgress(): Observable<any>{
       let suma = 0;      
-      this.progreso = []
+      this.progreso.splice(0,0);
       this.store.firestore.collection('h_ejercicio').where('fecha','==',this.datePipe.transform(Date.now(),'yyyy-MM-dd')).where('user_id','==',this.tokenStorage.getId()).
       onSnapshot({includeMetadataChanges:true},(snapshot)=>{
         snapshot.docChanges().forEach((change)=>{   
@@ -80,6 +82,23 @@ export class EjercicioService {
       })
     
       return of(this.progreso)
+    }
+
+    public getProgressD(date: any){
+      let suma = 0;      
+      this.progresoD = []
+      this.store.firestore.collection('h_ejercicio').where('fecha','==',date).where('user_id','==',this.tokenStorage.getId()).
+      onSnapshot({includeMetadataChanges:true},(snapshot)=>{
+        snapshot.docChanges().forEach((change)=>{   
+          if(change.type ==="added"){ 
+              suma += change.doc.get('progreso')
+              this.progresoD.push(suma);  
+          }          
+        })        
+        let source = snapshot.metadata.fromCache ? "local cache" : "firebase server";
+      })
+    
+      return this.progresoD
     }
 
 }
