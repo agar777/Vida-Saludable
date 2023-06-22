@@ -11,7 +11,7 @@ export const environment = {
     authDomain: 'appsaluduab2.firebaseapp.com',
     messagingSenderId: '564102367220',
   },
-  production: false
+  production: true
 };
 
 /*

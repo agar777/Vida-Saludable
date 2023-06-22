@@ -1,10 +1,10 @@
 <div class="row">
   <div class="col-md-6 col-lg-3" *ngFor='let topcard of alimentacion'>
-     <a (click)="eventClick(topcard)" (click)="expression" >
+     <a (click)="eventClick(topcard)">
       <div class="card">
         <div class="card-body">
             <div class="d-flex align-items-center">
-                <div class="btn btn-lg rounded-circle round round-lg fs-6 d-flex align-items-center justify-content-center bg-light-info">
+                <div class="btn btn-lg rounded-circle round round-lg fs-6 d-flex align-items-center justify-content-center bg-light-warning">
                     <img src="../../../../assets/images/alimentacion/{{topcard.icon}}" width="50px" alt="">
                 </div>
                 <div class="ms-3">
@@ -22,9 +22,9 @@
   <div class="col-12">
     <div class="card">
       <div class="p-3">
-        <h4 class="card-title mb-0 text-uppercase ">ALIMENTACIÓN: {{nutricion?.nombre}}</h4>
-        <span *ngIf="nutricion?.nutricion_id !=4" >{{nutricion?.hora_inicio}} - {{nutricion?.hora_fin}} </span>
-        <div class="mt-2"*ngIf="nutricion?.nutricion_id !=4"  >
+        <h4 class="card-title mb-0 text-uppercase p-2 ">ALIMENTACIÓN: {{nutricion?.nombre}}</h4>
+        <span class="p-2"  *ngIf="nutricion?.nutricion_id !=4" >{{nutricion?.hora_inicio}} - {{nutricion?.hora_fin}} </span>
+        <div class="mt-2 p-2 "*ngIf="nutricion?.nutricion_id !=4"  >
           <label for="">MI PROGRESO DIARIO</label>
             <ngb-progressbar *ngIf="progress[progress.length-1]<=34" style="height: 20px;" type="danger"  [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
             <ngb-progressbar *ngIf="progress[progress.length-1]>34 && progress[progress.length-1]<=67" style="height: 20px;" type="warning"  [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
@@ -33,8 +33,8 @@
       </div>
       <div class="card-body border-top">
           <form [formGroup]="form" (ngSubmit)="save(form.value)" >
-              <mat-card *ngIf="nutricion?.nutricion_id!=null; else alert">          
-                <mat-card-content *ngIf="nutricion?.hora_inicio>=hora ||nutricion?.hora_fin>=hora; else message" >                
+              <mat-card *ngIf="nutricion?.nutricion_id!=null; else alert">
+                <mat-card-content *ngIf="nutricion?.hora_inicio>=hora || nutricion?.hora_fin>=hora; else message" >
                   <div class="row d-flex justify-content-center">
                     <app-congratulation *ngIf="progress[progress.length-1]==100"></app-congratulation>
                     <div class="col-md-10 col-lg-10 mb-3">
@@ -42,14 +42,14 @@
                         <label class="form-control-label">FECHA ACTUAL</label>
                         <input type="date" id="" formControlName="fecha" class="form-control form-control-alternative">
                       </div>
-      
+
                     </div>
                     <div class="col-md-10 col-lg-10 mb-3">
                       <div class="form-group">
                         <label class="form-control-label">HORA</label>
                         <input type="time" formControlName="hora" class="form-control form-control-alternative">
                       </div>
-                          
+
                     </div>
                     <div class="col-md-10 col-lg-10 mb-3" *ngIf="nutricion?.nutricion_id!=4" >
                       <div class="form-group">
@@ -66,8 +66,8 @@
                             NO
                           </label>
                         </div>
-                      </div>              
-                          
+                      </div>
+
                     </div>
                     <div class="col-md-10">
                       <button
@@ -85,8 +85,8 @@
                       <h5>Ya Paso la hora de: {{nutricion?.nombre}}</h5>
                   </mat-card-content>
                 </ng-template>
-                
-                
+
+
               </mat-card>
 
               <ng-template #alert>
@@ -94,7 +94,7 @@
                   <h5>Por favor seleccione la alimentación según el horario que le corresponde</h5>
                 </mat-card>
               </ng-template>
-              
+
           </form>
       </div>
     </div>

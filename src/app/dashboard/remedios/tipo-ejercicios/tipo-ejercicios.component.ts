@@ -28,12 +28,13 @@ export class TipoEjerciciosComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap
     .subscribe((paramMap: any) => {
-      this.id = paramMap.get('id'); 
+      this.id = paramMap.get('id');
     })
     this.listTipoEjercicio(this.id);
     this.create();
     this.progreso()
   }
+
 
   create() {
     this.form = this.formBuilder.group({
@@ -49,7 +50,7 @@ export class TipoEjerciciosComponent implements OnInit {
 
   listTipoEjercicio(id: any) {
     this.ejercicioService.getTipoEjercicio(id).subscribe(data=>{
-        this.ejercicio = data;      
+        this.ejercicio = data;
     })
   }
 
@@ -62,12 +63,10 @@ export class TipoEjerciciosComponent implements OnInit {
 
   }
   tiempo(item:any){
-    this.form.controls.hora.setValue(item);    
+    this.form.controls.hora.setValue(item);
   }
 
   save(data:any){
-    if(this.form.controls.hora.value >= "00:30:00:00"){
-
       this.ejercicioService.create(data).pipe(
         finalize(() => {
           this.form.markAsPristine();
@@ -77,7 +76,7 @@ export class TipoEjerciciosComponent implements OnInit {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Dato registrado con Exito',
+            title: '¡Felicitaciones por registrar y cumplir con tu progreso!',
             // text: 'postivo',
             text: data.succes,
             showConfirmButton: false,
@@ -88,29 +87,17 @@ export class TipoEjerciciosComponent implements OnInit {
           this.progreso();
         }
       )
-    }
-    else{
-     Swal.fire({
-       position: 'center',
-       icon: 'warning',
-       title: 'Complete la hora recomendada',
-       // text: 'postivo'
-       showConfirmButton: false,
-       timer: 1500
-     });
-    }
-
   }
 
   progreso(){
     // if (this.form.controls.hora.value >= "00:30:00:00") {
-      this.progress =[];
+    this.progress =[];
     this.ejercicioService.getProgress().subscribe(data=>{
-      this.progress = data;    
+      this.progress = data;
       console.log(this.progress);
-      
+
     })
   }
-  
+
 
 }

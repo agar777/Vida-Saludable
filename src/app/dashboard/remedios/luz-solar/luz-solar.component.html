@@ -3,22 +3,22 @@
       <div class="card">
         <div class="p-3 d-flex">
             <img src="../../../../assets/images/sol.png" width="50px" class="ms-3 me-3" >
-            <h4 class="d-flex align-items-center" >LUZ SOLAR</h4> 
+            <h4 class="d-flex align-items-center" >LUZ SOLAR</h4>
         </div>
-        <div class="p-2">
+        <div class="p-3">
           <div class="alert alert-primary" role="alert">
-            <span>Horario recomendable: {{horario[0]?.hora_inicioM}} - {{horario[0]?.hora_finM}} y {{horario[0]?.hora_tarde}} - {{horario[0]?.hora_tardeF}}, minimo 25 minutos </span>                 
+            <span>Horario recomendable: {{horario[0]?.hora_inicioM}} - {{horario[0]?.hora_finM}} y {{horario[0]?.hora_tarde}} - {{horario[0]?.hora_tardeF}}, minimo 25 minutos </span>
           </div>
           <div *ngIf="hora > horario[0]?.hora_finM && hora > horario[0]?.hora_tardeF" class="alert alert-danger" role="alert">
               No es recomendable tomar el sol a las {{hora}}
-          </div>          
+          </div>
         </div>
-        <div class="mt-2 p-2" >
+        <div class="mt-2 p-3" >
           <label for="">MI PROGRESO DIARIO</label>
           <ngb-progressbar style="height: 20px;" type="success" *ngIf="progress[progress.length-1] ==100" [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
           <ngb-progressbar style="height: 20px;" type="danger" *ngIf="progress[progress.length-1] !=100" [value]="progress[progress.length-1]">0%</ngb-progressbar>
         </div>
-        
+
         <div class="card-body border-top">
             <form [formGroup]="form"(ngSubmit)="save(form.value)" >
                 <mat-card>
@@ -29,20 +29,20 @@
                           <div class="form-group">
                             <label class="form-control-label mb-2">FECHA ACTUAL</label>
                             <input type="date" id="" formControlName="fecha" class="form-control form-control-alternative">
-                          </div>          
+                          </div>
                         </div>
                         <div class="col-md-5 col-lg-5 mb-3">
                           <div class="form-group">
                             <label class="form-control-label mb-2">HORA ACTUAL</label>
                             <input type="text" id="" formControlName="hora_inicio" class="form-control form-control-alternative">
-                          </div>          
+                          </div>
                         </div>
                         <div class="col-md-10 col-lg-10 mb-3 mt-3">
                             <div class="form-group" >
-                                 <label class="form-control-label mb-2">CRONOMETRO</label>                            
+                                 <label class="form-control-label mb-2">CRONOMETRO</label>
                                  <app-cronometro (hora)="tiempo($event)" ></app-cronometro>
                             </div>
-                        </div>                        
+                        </div>
                         <div class="col-md-10">
                           <button
                             type="submit"
@@ -53,12 +53,11 @@
                           </button>
                       </div>
                       </div>
-                    </mat-card-content>              
-                    
+                    </mat-card-content>
+
                   </mat-card>
                </form>
         </div>
       </div>
     </div>
   </div>
-  

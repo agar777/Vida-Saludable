@@ -13,10 +13,10 @@ import { AguaService } from '../../../core/services/agua.service';
 export class AguaComponent implements OnInit {
 
   form!:FormGroup;
-  agua!:any; 
+  agua!:any;
   progress: any;
   count: any;
-  
+
   constructor(
     private aguaService: AguaService,
     private formBuilder: FormBuilder,
@@ -32,7 +32,7 @@ export class AguaComponent implements OnInit {
   cantidadVasos() {
     this.aguaService.cantidadVasos().subscribe(data=>{
       this.count = data;
-      
+
     })
   }
 
@@ -47,13 +47,13 @@ export class AguaComponent implements OnInit {
   listaAgua() {
     this.aguaService.getAll().subscribe(data=>{
       this.agua = data;
-      
+
     })
   }
 
   evento(item:any){
       this.form.controls.agua_id.setValue(item);
-        this.save(this.form.value);   
+        this.save(this.form.value);
   }
 
   save(form:any){
@@ -67,7 +67,7 @@ export class AguaComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Dato registrado con Exito',
+          title: '¡Felicitaciones por registrar y cumplir con tu progreso!',
           // text: 'postivo',
           text: data.succes,
           showConfirmButton: false,
@@ -95,9 +95,9 @@ export class AguaComponent implements OnInit {
   progreso(){
     // this.progress=[]
     this.aguaService.getProgress().subscribe(data=>{
-      this.progress = data;   
+      this.progress = data;
       console.log(this.progress);
-             
+
     })
   }
 

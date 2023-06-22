@@ -13,7 +13,7 @@ import { EsperanzaService } from './esperanza.service';
 import { LuzSolarService } from './luz-solar.service';
 
 @Injectable({
-  providedIn: 'root', 
+  providedIn: 'root',
 })
 export class ConfService {
 
@@ -33,12 +33,12 @@ export class ConfService {
     getProgresoDiario(): Observable<any>{
       this.progreso = []
       this.progreso.push(
-        { 'nombre': 'agua', 'data': this.agua.progreso},
-        {'nombre':'alimentacion', 'data': this.alimentacion.progreso},
-        {'nombre':'descanso', 'data': this.descanso.progreso},
-        {'nombre':'ejercicio', 'data': this.ejercicio.progreso},
-        {'nombre':'esperanza', 'data': this.esperanza.progreso},
-        {'nombre':'luz', 'data': this.luz.progreso},
+        { 'nombre': 'agua', 'icon':'bi bi-droplet', 'data': this.agua.progreso},
+        {'nombre':'alimentacion', 'icon':'bi bi-egg-fried', 'data': this.alimentacion.progreso},
+        {'nombre':'descanso', 'icon':'bi bi-moon-stars-fill', 'data': this.descanso.progreso},
+        {'nombre':'ejercicio', 'icon':'bi bi-bicycle', 'data': this.ejercicio.progreso},
+        {'nombre':'esperanza', 'icon':'bi bi-heart-pulse', 'data': this.esperanza.progreso},
+        {'nombre':'luz', 'icon':'bi bi-brightness-high', 'data': this.luz.progreso},
       )
 
       return of(this.progreso)
@@ -48,16 +48,16 @@ export class ConfService {
     getProgresoAll(fecha: any):Observable<any>{
       this.progresoD = []
       this.progresoD.push(
-        { 'nombre': 'agua', 'data': this.agua.getProgressD(fecha)},
-        {'nombre':'alimentacion', 'data': this.alimentacion.getProgressD(fecha)},
-        {'nombre':'descanso', 'data': this.descanso.getProgressD(fecha)},
-        {'nombre':'ejercicio', 'data': this.ejercicio.getProgressD(fecha)},
-        {'nombre':'esperanza', 'data': this.esperanza.getProgressD(fecha)},
-        {'nombre':'luz', 'data': this.luz.getProgressD(fecha)},
+        { 'nombre': 'agua','icon':'bi bi-droplet', 'data': this.agua.getProgressD(fecha)},
+        {'nombre':'alimentacion','icon':'bi bi-egg-fried', 'data': this.alimentacion.getProgressD(fecha)},
+        {'nombre':'descanso','icon':'bi bi-moon-stars-fill', 'data': this.descanso.getProgressD(fecha)},
+        {'nombre':'ejercicio','icon':'bi bi-bicycle', 'data': this.ejercicio.getProgressD(fecha)},
+        {'nombre':'esperanza','icon':'bi bi-heart-pulse', 'data': this.esperanza.getProgressD(fecha)},
+        {'nombre':'luz','icon':'bi bi-brightness-high', 'data': this.luz.getProgressD(fecha)},
       )
       return of(this.progresoD)
     }
 
-  
+
 
 }

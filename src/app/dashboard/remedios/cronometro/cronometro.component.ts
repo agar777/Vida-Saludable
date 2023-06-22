@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter,HostListener, Inject, OnInit, Output } from '@angular/core';
+// import { WakeLockSentinel, NoSleep } from 'wake-lock'
 
 @Component({
   selector: 'app-cronometro',
@@ -14,13 +15,15 @@ export class CronometroComponent implements OnInit {
 
   startTimer:any;
   running= false
+  runnings= false
 
   @Output() hora = new EventEmitter<any>();
 
-  constructor() { }
+  constructor(
+  ) { }
 
   ngOnInit(): void {
-    
+
   }
 
   start():void{
@@ -33,23 +36,24 @@ export class CronometroComponent implements OnInit {
         if (this.centesimas===100) {
             this.segundos++;
             this.segundos = this.segundos<10?'0'+this.segundos: this.segundos
-            this.centesimas ='0'+0      
+            this.centesimas ='0'+0
         }
         if (this.segundos===60) {
           this.minutos++;
           this.minutos = this.minutos<10?'0'+this.minutos: this.minutos
-          this.segundos ='0'+0      
+          this.segundos ='0'+0
         }
         if (this.minutos===60) {
           this.horas++;
           this.horas = this.horas<10?'0'+this.horas: this.horas
-          this.minutos ='0'+0      
-        }      
+          this.minutos ='0'+0
+        }
      },10)
     }else{
       this.stop();
     };
     this.tiempo()
+
   }
 
   stop():void {
@@ -64,9 +68,9 @@ export class CronometroComponent implements OnInit {
   }
 
   tiempo(){
-    let data = this.horas+':'+this.minutos+':'+this.segundos+':'+this.centesimas    
+    let data = this.horas+':'+this.minutos+':'+this.segundos+':'+this.centesimas
     this.hora.emit(data)
   }
- 
+
 
 }

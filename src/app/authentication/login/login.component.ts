@@ -32,6 +32,16 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  viewPassword = false;
+
+  changeTypePassword(){
+    if(this.viewPassword){
+      this.viewPassword = false;
+    }else{
+      this.viewPassword = true;
+    }
+  }
+
   login(form:any){
       this.authService
         .login(form)

@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { AlimentacionService } from '../../../core/services/alimentacion.service';
 import Swal from 'sweetalert2';
-import { NotificacionesFireService } from '../../../core/services/notificaciones-fire.service';
+// import { NotificacionesFireService } from '../../../core/services/notificaciones-fire.service';
 
 @Component({
   selector: 'app-alimentacion',
@@ -24,23 +24,23 @@ export class AlimentacionComponent implements OnInit {
     private alimentacionService: AlimentacionService,
     private formBuilder: FormBuilder,
     private dataPipe: DatePipe,
-    private fireNoti: NotificacionesFireService
+    // private fireNoti: NotificacionesFireService
   ) {
     this.hora=this.dataPipe.transform(Date.now(),'HH:mm');
 
-        switch (this.hora) {
-          case '08:00':
-              this.fireNoti.sendPushNotification("Hora de Desayunar","Llego la hora de un desayuno saludable")
-            break;
-            case '12:30':
-              this.fireNoti.sendPushNotification("Hora de Almorzar","Llego la hora de un almuerzo saludable")
-            break;
-            case '18:30':
-              this.fireNoti.sendPushNotification("Hora de Cenar","Llego la hora de una cena saludable")
-            break;
-          default:
-            break;
-        }
+    //     switch (this.hora) {
+    //       case '08:00':
+    //           this.fireNoti.sendPushNotification("Hora de Desayunar","Llego la hora de un desayuno saludable")
+    //         break;
+    //         case '12:30':
+    //           this.fireNoti.sendPushNotification("Hora de Almorzar","Llego la hora de un almuerzo saludable")
+    //         break;
+    //         case '18:30':
+    //           this.fireNoti.sendPushNotification("Hora de Cenar","Llego la hora de una cena saludable")
+    //         break;
+    //       default:
+    //         break;
+    //     }
 
    }
 
@@ -48,7 +48,7 @@ export class AlimentacionComponent implements OnInit {
     this.listaAlimentacion();
     this.create();
     this.progreso();
-    this.fireNoti.receiveMessages();
+    // this.fireNoti.receiveMessages();
 
   }
 
@@ -65,15 +65,19 @@ export class AlimentacionComponent implements OnInit {
   listaAlimentacion() {
     this.alimentacionService.getAll().subscribe(data=>{
       this.alimentacion = data;
-      
     })
   }
 
   eventClick(item: any){
       this.nutricion= item
+      console.log(item);
+
       this.form.controls.nutricion_id.setValue(item.nutricion_id);
-      if(item.nutricion_id!=4){
+      if(item.nutricion_id!="4"){
         this.form.controls.progreso.setValue(item.progreso);
+      }
+      else{
+        this.form.controls.progreso.setValue(5);
       }
 
       if(item.nutricion_id==4){
@@ -93,7 +97,7 @@ export class AlimentacionComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Dato registrado con Exito',
+          title: '¡Felicitaciones por registrar y cumplir con tu progreso!',
           // text: 'postivo',
           text: data.succes,
           showConfirmButton: false,
@@ -113,14 +117,16 @@ export class AlimentacionComponent implements OnInit {
   //    // text: 'postivo'
   //    showConfirmButton: false,
   //    timer: 1500
-  //  });   
+  //  });
   // }
-  
+
 
   progreso(){
-    this.progress=[]
+    // this.progress=[]
     this.alimentacionService.getProgress().subscribe(data=>{
-      this.progress = data;          
+      this.progress = data;
+      console.log(data,'data');
+
     })
   }
 
