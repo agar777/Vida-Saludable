@@ -20,7 +20,7 @@
 
   <div class="col-md-6 col-lg-3" *ngFor='let topcard of agua'>
   <app-congratulation id='clear' *ngIf="progress[progress.length-1]==100"></app-congratulation>
-     <a (click)="evento(topcard.agua_id)">
+     <a (click)="evento(topcard.agua_id,topcard.hora_inicio)">
       <div class="card">
         <div class="card-body">
             <div class="d-flex align-items-center">

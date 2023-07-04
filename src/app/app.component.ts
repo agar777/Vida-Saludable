@@ -19,55 +19,53 @@ export class AppComponent {
    */
   constructor(private swPush:SwPush, private datePipe: DatePipe,
     private notificacionService:NotificacionesService  ) {
-    this.subscribeToNotifications();
-    // this.send()
+    // this.subscribeToNotifications();
+    this.send("Vida Saludable", "No olvides registrar tu progreso")
     // this.fireNoti.requestPermission();
     // this.fireNoti.receiveMessages();
     // this.message = this.fireNoti.currentMessage;
+    this.send("Agua","Toma un vaso de agua para estar con buenas energias")
 
-    // this.hora= datePipe.transform(Date.now(),'HH:mm');
+    this.hora= datePipe.transform(Date.now(),'HH:mm');
     // this.fireNoti.sendPushNotification("Vida Saludable","No te olvides de registrar tus progreso")
 
-    // switch (this.hora) {
-    //   case '07:00':
-    //       this.fireNoti.sendPushNotification("Hora de Despertar","Es hora de despertar!!!")
-    //     break;
-    //   case '08:00':
-    //       this.fireNoti.sendPushNotification("Hora de Desayunar","Llego la hora de un desayuno saludable")
-    //       this.fireNoti.sendPushNotification("Agua","Toma un vaso de agua para estar con buenas energias")
-    //       this.fireNoti.sendPushNotification("Orar","No te olvide de Orar antes de desayunar")
-    //     break;
-    //     case '12:30':
-    //       this.fireNoti.sendPushNotification("Agua","Toma un vaso de agua para estar con buenas energias")
-    //       this.fireNoti.sendPushNotification("Hora de Almorzar","Llego la hora de un almuerzo saludable")
-    //       this.fireNoti.sendPushNotification("Orar","No te olvide de Orar antes de almorzar")
-    //     break;
-    //     case '18:30':
-    //       this.fireNoti.sendPushNotification("Agua","Toma un vaso de agua para estar con buenas energias")
-    //       this.fireNoti.sendPushNotification("Hora de Cenar","Llego la hora de una cena saludable")
-    //       this.fireNoti.sendPushNotification("Orar","No te olvide de Orar antes de Cenar")
-    //     break;
-    //     case '22:00':
-    //       this.fireNoti.sendPushNotification("Agua","Toma un vaso de agua para estar con buenas energias")
-    //       this.fireNoti.sendPushNotification("Hora de Descansar","Llego la hora de dormir Zzzzz")
-    //       this.fireNoti.sendPushNotification("Vida Saludable","No te olvides de registrar tus progreso")
-    //     break;
-    //   default:
-    //     break;
-    // }
+    if(this.hora >= '08:00' && this.hora <= '9:00'){
+      this.send("Hora de Desayunar","¡Buenos días! Es hora de disfrutar de un delicioso desayuno saludable. Recuerda que el desayuno es la comida más importante del día. ")
+      // this.send("Agua","Toma un vaso de agua para estar con buenas energias")
+      this.send("Orar","¡Ora con fe y confianza en que tus palabras son escuchadas y que siempre serás guiado hacia la luz")
+    }else if(this.hora >='12:30' && this.hora <= '14:00'  ){
+      this.send("Hora de Almorzar","¡Buenas tardes! Es hora de disfrutar de un delicioso almuerzo saludable. ")
+      // this.send("Agua","Toma un vaso de agua para estar con buenas energias")
+      this.send("Orar","¡Ora con fe y confianza en que tus palabras son escuchadas y que siempre serás guiado hacia la luz")
 
+    }
+    else if (this.hora >='17:30' && this.hora <='21:00'){
+      this.send("Hora de Cenar","¡Buenas noches! Es hora de disfrutar de una deliciosa cena saludable.")
+      // this.send("Agua","Toma un vaso de agua para estar con buenas energias")
+      this.send("Orar","¡Ora con fe y confianza en que tus palabras son escuchadas y que siempre serás guiado hacia la luz")
+    }
+    else if(this.hora >= '21:00' && this.hora <= '22:30'){
+      this.send("Hora de descansar","Un buen descanso es la clave para un nuevo comienzo")
+      this.send("Agua","Toma un vaso de agua para estar con buenas energias")
+      this.send("Orar","¡Ora con fe y confianza en que tus palabras son escuchadas y que siempre serás guiado hacia la luz")
+    }
+
+    if(this.hora>='06:00' && this.hora <= '08:00' ){
+      this.send("Hora de despertar","¡Buenos días! ¡Es hora de despertar y comenzar un nuevo día lleno de oportunidades! ")
+      this.send("Orar","¡Ora con fe y confianza en que tus palabras son escuchadas y que siempre serás guiado hacia la luz")
+    }
   }
 
-  send() {
-    this.notificacionService.sendNotification().subscribe(data=>{
+  send(title:string, body:string) {
+    this.notificacionService.sendNotification({title,body}).subscribe(data=>{
       console.log("enviado");
-
     })
   }
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
+    this.subscribeToNotifications();
 
 
   }
