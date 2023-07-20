@@ -18,7 +18,8 @@ export class AguaComponent implements OnInit {
   progress: any;
   count: any;
   hora:any;
-  aguaD: string;
+  hora_inicio: string;
+  hora_fin: string;
 
   constructor(
     private aguaService: AguaService,
@@ -56,9 +57,11 @@ export class AguaComponent implements OnInit {
     })
   }
 
-  evento(item: any, hora: string) {
+  evento(item: any, hora: string, hora_fin:string) {
     this.form.controls.agua_id.setValue(item);
-    this.aguaD = hora;
+    this.hora_inicio = hora;
+    this.hora_fin = hora_fin;
+
     if (item != 9) {
       this.aguaService.disabledAgua(item).subscribe(data => {
         if(data===null){
@@ -82,7 +85,7 @@ export class AguaComponent implements OnInit {
 
 
   save(form:any){
-   if(this.aguaD == this.hora || this.form.controls.agua_id.value == 9 ){
+   if(this.hora_inicio >= this.hora || this.hora_fin >= this.hora  || this.form.controls.agua_id.value == 9 ){
     this.aguaService.create(form).pipe(
       finalize(() => {
         this.form.markAsPristine();

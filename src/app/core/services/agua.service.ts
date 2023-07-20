@@ -24,17 +24,6 @@ export class AguaService {
      }
 
   getAll(): Observable<any>{
-    // this.agua.splice(0,8);
-    // this.store.firestore.collection('agua').orderBy('agua_id').onSnapshot({includeMetadataChanges:true},(snapshot)=>{
-    //   snapshot.docChanges().forEach((change)=>{
-    //     if(change.type ==="added"){
-    //         this.agua.push(change.doc.data());
-    //     }
-
-    //   })
-    //   let source = snapshot.metadata.fromCache ? "local cache" : "firebase server";
-    // })
-    // return of(this.agua)
     const ref = collection(this.firestore,'agua');
     const orderedRef = query(ref, orderBy('agua_id'));
     return collectionData(orderedRef,{idField:'id'})as Observable<any>;
@@ -105,17 +94,6 @@ export class AguaService {
 
 
     disabledAgua(id:any){
-      // this.progreso.splice(0,0);
-      // this.store.firestore.collection('h_agua').where('fecha','==',this.datePipe.transform(Date.now(),'yyyy-MM-dd')).where('user_id','==',this.tokenStorage.getId()).where('agua_id','==',id).onSnapshot({includeMetadataChanges:true},(snapshot)=>{
-      //   snapshot.docChanges().forEach((change)=>{
-      //     if(change.type ==="added"){
-      //       this.disabled_agua.push(change.doc.data());
-      //     }
-      //   })
-      //   let source = snapshot.metadata.fromCache ? "local cache" : "firebase server";
-      // })
-
-      // return of(this.disabled_agua)
 
       const ref = collection(this.firestore,'h_agua');
       const orderedRef = query(ref, where('fecha','==',this.datePipe.transform(Date.now(),'yyyy-MM-dd')),where('user_id','==',this.tokenStorage.getId()), where('agua_id','==',id) );

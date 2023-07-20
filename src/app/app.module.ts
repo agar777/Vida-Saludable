@@ -32,6 +32,7 @@ import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/compat/f
 import { AngularFireModule } from '@angular/fire/compat';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
+import { NotificacionesService } from './core/services/notificaciones.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -73,6 +74,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   providers: [
     AngularFirestore,
+    NotificacionesService,
     {
       provide: LocationStrategy,
       useClass: PathLocationStrategy
