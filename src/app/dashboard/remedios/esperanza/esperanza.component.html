@@ -7,8 +7,8 @@
         </div>
         <div class="p-2">
           <div class="alert alert-primary" role="alert">
-            <span>Se recomienda orar tres veces al día: antes de Desayunar, Almorzar y Cenar </span>                 
-          </div>         
+            <span>Se recomienda orar tres veces al día: antes de Desayunar, Almorzar y Cenar </span>
+          </div>
         </div>
         <div class="mt-2 p-2" >
           <label for="">MI PROGRESO DIARIO</label>
@@ -17,14 +17,14 @@
           <ngb-progressbar style="height: 20px;" *ngIf="progress[progress.length-1] < 50 " type="danger" [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
 
         </div>
-        
+
         </div>
       </div>
       <div class="row d-flex justify-content-center">
         <div class="col-md-6 col-lg-4" *ngFor='let topcard of esperanza'>
           <a (click)="evento(topcard.esperanza_id)">
            <div class="card">
-                    <app-congratulation *ngIf="progress[progress.length-1]==100"></app-congratulation>
+            <app-congratulation *ngIf="progress[progress.length-1]==100 || showCongratulation"  ></app-congratulation>
 
              <div class="card-body">
                  <div class="d-flex align-items-center">
@@ -33,7 +33,7 @@
                      </div>
                      <div class="ms-3">
                          <h3 class="mb-0 font-weight-bold">{{topcard.nombre}}</h3>
-                         <span>{{topcard.hora_inicio}}</span>
+                         <span>Hora recomendable: {{topcard.hora_inicio}}</span>
                      </div>
                  </div>
              </div>

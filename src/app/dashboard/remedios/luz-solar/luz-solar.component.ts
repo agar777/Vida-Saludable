@@ -33,8 +33,8 @@ export class LuzSolarComponent implements OnInit {
   create() {
     this.form = this.formBuilder.group({
       fecha:[this.datePipe.transform(Date.now(),'yyyy-MM-dd')],
-      hora_inicio:[this.datePipe.transform(Date.now(),'hh:mm')],
-      hora:['', Validators.required],
+      hora_inicio:['',Validators.required],
+      hora_fin:['',Validators.required],
       luzSolar_id:['']
     })
   }

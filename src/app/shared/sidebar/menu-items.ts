@@ -1,7 +1,7 @@
 import { RouteInfo } from './sidebar.metadata';
 
 export const ROUTES: RouteInfo[] = [
- 
+
   {
     path: '/dashboard',
     title: 'Inicio',
@@ -36,7 +36,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '/dashboard/remedios/luz-solar',
-    title: 'Luz Solar',
+    title: 'Luz Solar y Aire Puro',
     icon: 'bi bi-brightness-high',
     class: '',
     extralink: false,

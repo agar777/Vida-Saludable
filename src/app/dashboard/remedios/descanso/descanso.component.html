@@ -9,7 +9,7 @@
                 </div>
                 <div class="ms-3">
                     <h3 class="mb-0 font-weight-bold">{{topcard.nombre}}</h3>
-                    <span>Recomendable: {{topcard.hora_inicio}} </span>
+                    <span>Hora Recomendable: {{topcard.hora_inicio}} </span>
                 </div>
             </div>
         </div>
@@ -27,8 +27,8 @@
           <div class="mt-2" >
             <label for="">MI PROGRESO DIARIO</label>
             <ngb-progressbar style="height: 20px;" type="success" *ngIf="progress[progress.length-1] ==100" [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
-            <ngb-progressbar style="height: 20px;" type="warning" *ngIf="progress[progress.length-1] ==50" [value]="progress[progress.length-1]">0%</ngb-progressbar>
-            <ngb-progressbar style="height: 20px;" type="danger" *ngIf="progress[progress.length-1] < 50" [value]="progress[progress.length-1]">0%</ngb-progressbar>
+            <ngb-progressbar style="height: 20px;" type="warning" *ngIf="progress[progress.length-1] ==50" [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
+            <ngb-progressbar style="height: 20px;" type="danger" *ngIf="progress[progress.length-1] < 50" [value]="progress[progress.length-1]">{{progress[progress.length-1]}}%</ngb-progressbar>
           </div>
         </div>
         <div class="card-body border-top">
@@ -41,14 +41,14 @@
                             <label class="form-control-label mb-2">FECHA ACTUAL</label>
                             <input type="date" id="" formControlName="fecha"  class="form-control form-control-alternative">
                           </div>
-          
+
                         </div>
                         <div class="col-md-10 col-lg-10 mb-3 mt-3">
                           <div class="form-group">
                             <label class="form-control-label">HORA</label>
-                            <input type="time" formControlName="hora" class="form-control form-control-alternative">
+                            <input type="time" min="05:00" max="22:30"  formControlName="hora" class="form-control form-control-alternative">
                           </div>
-                        </div>  
+                        </div>
                         <div class="col-md-10 col-lg-10 mb-3 mt-3" *ngIf="descanso?.descanso_id == 2" >
                           <div class="form-group ">
                             <label class="form-control-label" for="input-username">{{descanso?.descanso_id=='1'? '¿DURMIÓ BIEN?':'¿DESCANSO BIEN?'}}</label>
@@ -64,16 +64,16 @@
                                 NO
                               </label>
                             </div>
-                          </div>  
-                        </div>   
+                          </div>
+                        </div>
 
                         <div class="col-md-10" *ngIf="form.controls.descanso.value=='false'" >
                             <div class="form-group">
                               <label class="form-control-label">¿POR QUÉ?</label>
                               <textarea name="" formControlName="porque" class="form-control form-control-alternative" id="" cols="5" rows="5"></textarea>
                             </div>
-                        </div> 
-                                            
+                        </div>
+
                         <div class="col-md-10 mt-3 ">
                           <button
                             type="submit"
@@ -84,8 +84,8 @@
                           </button>
                       </div>
                       </div>
-                    </mat-card-content>              
-                    
+                    </mat-card-content>
+
                   </mat-card>
                </form>
         </div>

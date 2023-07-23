@@ -36,7 +36,7 @@
               <mat-card *ngIf="nutricion?.nutricion_id!=null; else alert">
                 <mat-card-content *ngIf="nutricion?.hora_inicio>=hora || nutricion?.hora_fin>=hora; else message" >
                   <div class="row d-flex justify-content-center">
-                    <app-congratulation *ngIf="progress[progress.length-1]==100"></app-congratulation>
+                    <app-congratulation *ngIf="progress[progress.length-1]==100 && showCongratulation"  ></app-congratulation>
                     <div class="col-md-10 col-lg-10 mb-3">
                       <div class="form-group">
                         <label class="form-control-label">FECHA ACTUAL</label>

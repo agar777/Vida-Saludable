@@ -23,11 +23,11 @@ export class EsperanzaService {
      getAll(): Observable<any>{
       this.esperanza.splice(0,2);
       this.store.firestore.collection('esperanza').orderBy('esperanza_id').onSnapshot({includeMetadataChanges:true},(snapshot)=>{
-        snapshot.docChanges().forEach((change)=>{   
-          if(change.type ==="added"){          
-              this.esperanza.push(change.doc.data());                        
+        snapshot.docChanges().forEach((change)=>{
+          if(change.type ==="added"){
+              this.esperanza.push(change.doc.data());
           }
-          
+
         })
         let source = snapshot.metadata.fromCache ? "local cache" : "firebase server";
       })
@@ -40,44 +40,44 @@ export class EsperanzaService {
         fecha:data['fecha'],
         hora:data['hora'],
         esperanza_id: data['esperanza_id'],
-        progreso: 25   
-       }     
+        progreso: data['progreso']
+       }
 
       return of(this.store.collection('h_esperanza').add(ref))
 
     }
 
     getProgress(): Observable<any>{
-      let suma = 0;   
+      let suma = 0;
       this.progreso.splice(0,0);
       this.store.firestore.collection('h_esperanza').where('fecha','==',this.datePipe.transform(Date.now(),'yyyy-MM-dd')).where('user_id','==',this.tokenStorage.getId()).
       onSnapshot({includeMetadataChanges:true},(snapshot)=>{
-        snapshot.docChanges().forEach((change)=>{   
-          if(change.type ==="added"){ 
+        snapshot.docChanges().forEach((change)=>{
+          if(change.type ==="added"){
               suma += change.doc.get('progreso')
-              this.progreso.push(suma);  
-          }          
-        })        
+              this.progreso.push(suma);
+          }
+        })
         let source = snapshot.metadata.fromCache ? "local cache" : "firebase server";
       })
-    
+
       return of(this.progreso)
     }
 
     public getProgressD(date: any){
-      let suma = 0;   
-      this.progresoD = []   
+      let suma = 0;
+      this.progresoD = []
       this.store.firestore.collection('h_esperanza').where('fecha','==',date).where('user_id','==',this.tokenStorage.getId()).
       onSnapshot({includeMetadataChanges:true},(snapshot)=>{
-        snapshot.docChanges().forEach((change)=>{   
-          if(change.type ==="added"){ 
+        snapshot.docChanges().forEach((change)=>{
+          if(change.type ==="added"){
               suma += change.doc.get('progreso')
-              this.progresoD.push(suma);  
-          }          
-        })        
+              this.progresoD.push(suma);
+          }
+        })
         let source = snapshot.metadata.fromCache ? "local cache" : "firebase server";
       })
-    
+
       return this.progresoD
     }
 

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
 const ID_KEY='id_user'
+const TOKEN_NOT = 'notificacion-token';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,20 @@ export class TokenStorageService {
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
   }
+
+  saveTokenNot(token:string):void{
+    window.sessionStorage.removeItem(TOKEN_NOT);
+    window.sessionStorage.setItem(TOKEN_NOT, token);
+  }
+
+  getTokenNot(): any {
+    const not = window.sessionStorage.getItem(TOKEN_NOT);
+    if (not) {
+      return JSON.parse(not);
+    }
+    return {};
+  }
+
 
   public getToken(): string | null {
     return window.sessionStorage.getItem(TOKEN_KEY);
@@ -37,7 +52,7 @@ export class TokenStorageService {
 
   public saveId(id:any){
     window.sessionStorage.removeItem(ID_KEY);
-    window.sessionStorage.setItem(ID_KEY, JSON.stringify(id));    
+    window.sessionStorage.setItem(ID_KEY, JSON.stringify(id));
   }
 
   public getId(): any {

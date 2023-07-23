@@ -4,14 +4,18 @@ import firebase from 'firebase/compat/app';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { SwPush } from '@angular/service-worker';
+import { TokenStorageService } from './token-storage.service';
 @Injectable({
   providedIn: 'root'
 })
 export class NotificacionesService {
+  // public url='https://notificaciones-vs-production.up.railway.app'
   public url='https://notificaciones-vs-production.up.railway.app'
+  auth: string | null;
 
   constructor(
     private http: HttpClient,
+    private tokenStorageService: TokenStorageService
   ) {
   }
 
@@ -25,7 +29,7 @@ export class NotificacionesService {
 
 
   sendNotification=({title,body}:any)=>{
-    return this.http.post(`${this.url}/send`,{title:title,body:body},{
+    return this.http.post(`${this.url}/send`,{title:title,body:body,auth: this.tokenStorageService.getTokenNot().keys.auth  },{
       headers: {
         'Content-Type':'application/json',
       }

@@ -15,6 +15,7 @@ export class AlimentacionComponent implements OnInit {
 
   alimentacion!: any;
   hora:any;
+  showCongratulation = true;
   form!: FormGroup;
   time = new Date();
   nutricion!: any;
@@ -28,29 +29,23 @@ export class AlimentacionComponent implements OnInit {
   ) {
     this.hora=this.dataPipe.transform(Date.now(),'HH:mm');
 
-    //     switch (this.hora) {
-    //       case '08:00':
-    //           this.fireNoti.sendPushNotification("Hora de Desayunar","Llego la hora de un desayuno saludable")
-    //         break;
-    //         case '12:30':
-    //           this.fireNoti.sendPushNotification("Hora de Almorzar","Llego la hora de un almuerzo saludable")
-    //         break;
-    //         case '18:30':
-    //           this.fireNoti.sendPushNotification("Hora de Cenar","Llego la hora de una cena saludable")
-    //         break;
-    //       default:
-    //         break;
-    //     }
-
    }
 
   ngOnInit(): void {
     this.listaAlimentacion();
     this.create();
     this.progreso();
-    // this.fireNoti.receiveMessages();
+
+    if (this.progress[this.progress.length-1]==100) {
+      setTimeout(() => {
+        this.showCongratulation = false;
+        console.log('Han pasado 10 segundos');
+      }, 10000);
+    }
 
   }
+
+
 
   create() {
     this.form = this.formBuilder.group({
@@ -70,8 +65,6 @@ export class AlimentacionComponent implements OnInit {
 
   eventClick(item: any){
       this.nutricion= item
-      console.log(item);
-
       this.form.controls.nutricion_id.setValue(item.nutricion_id);
       if(item.nutricion_id!="4"){
         this.form.controls.progreso.setValue(item.progreso);
@@ -125,8 +118,6 @@ export class AlimentacionComponent implements OnInit {
     // this.progress=[]
     this.alimentacionService.getProgress().subscribe(data=>{
       this.progress = data;
-      console.log(data,'data');
-
     })
   }
 

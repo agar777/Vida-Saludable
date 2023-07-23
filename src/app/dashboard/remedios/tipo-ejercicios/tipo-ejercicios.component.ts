@@ -57,13 +57,31 @@ export class TipoEjerciciosComponent implements OnInit {
   eventClick(item:any){
     this.ejer = item
     this.form.controls.ejercicio_id.setValue(item.ejercicio_id);
-    if(this.id ==1){
-      this.form.controls.progreso.setValue(100)
-    }
 
   }
-  tiempo(item:any){
+
+  tiempo(item: any) {
     this.form.controls.hora.setValue(item);
+    const minutos = this.convertirATiempo(item);
+
+
+    if (this.id == 1) {
+      if (minutos >= 10 || minutos >= 20) {
+        this.form.controls.progreso.setValue(30);
+      }
+      if (minutos >= 20 ||minutos >= 30) {
+        this.form.controls.progreso.setValue(40);
+      }
+    }
+  }
+
+  convertirATiempo(tiempo: string): number {
+    const partesTiempo = tiempo.split(':');
+    const horas = parseInt(partesTiempo[0], 10);
+    const minutos = parseInt(partesTiempo[1], 10);
+    const segundos = parseInt(partesTiempo[2], 10);
+
+    return minutos
   }
 
   save(data:any){
@@ -90,7 +108,6 @@ export class TipoEjerciciosComponent implements OnInit {
   }
 
   progreso(){
-    // if (this.form.controls.hora.value >= "00:30:00:00") {
     this.progress =[];
     this.ejercicioService.getProgress().subscribe(data=>{
       this.progress = data;

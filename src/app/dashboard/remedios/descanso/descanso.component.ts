@@ -25,9 +25,9 @@ export class DescansoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.hora= this.datePipe.transform(Date.now(),'hh:mm')
-    // console.log(this.hora);
-    
+    this.hora= this.datePipe.transform(Date.now(),':mm')
+    console.log(this.hora);
+
     this.listaDescanso();
     this.create();
     this.progreso();
@@ -37,8 +37,8 @@ export class DescansoComponent implements OnInit {
     this.form = this.formBuilder.group({
       descanso:[''],
       fecha:[this.datePipe.transform(Date.now(),'yyyy-MM-dd')],
-      hora:[this.datePipe.transform(Date.now(),'hh:mm')],
-      porque:[''] 
+      hora:[this.datePipe.transform(Date.now(),'H:mm')],
+      porque:['']
     })
   }
 
@@ -88,8 +88,8 @@ export class DescansoComponent implements OnInit {
   progreso(){
     this.progress = []
     this.descansoService.getProgress().subscribe(data=>{
-      this.progress = data;    
-      
+      this.progress = data;
+
     })
   }
 }

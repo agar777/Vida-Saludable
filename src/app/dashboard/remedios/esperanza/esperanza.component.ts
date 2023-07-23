@@ -15,6 +15,7 @@ export class EsperanzaComponent implements OnInit {
   form!: FormGroup;
   progress:any[]=[]
   esperanza: any;
+  showCongratulation: boolean = true;
 
   constructor(
     private formBuilder:FormBuilder,
@@ -26,6 +27,7 @@ export class EsperanzaComponent implements OnInit {
     this.create();
     this.getAll();
     this.progreso()
+
   }
 
   getAll() {
@@ -38,40 +40,68 @@ export class EsperanzaComponent implements OnInit {
      this.form = this.formBuilder.group({
       fecha:[this.datePipe.transform(Date.now(),'yyyy-MM-dd')],
       hora:[this.datePipe.transform(Date.now(),'hh:mm')],
-      esperanza_id:['']
+      esperanza_id:[''],
+      progreso:['']
     })
   }
 
   evento(item:any){
     this.form.controls.esperanza_id.setValue(item);
-      this.save(this.form.value);
+    if (this.progress[this.progress.length-1]==100) {
+       this.form.controls.progreso.setValue(0);
+    }
+    else{
+      this.form.controls.progreso.setValue(25);
+    }
+    this.save(this.form.value);
 }
 
   save(form:any){
-    this.esperanzaService.create(form).pipe(
-      finalize(() => {
-        this.form.markAsPristine();
-      })
-      ).subscribe(
-      data=>{
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: '¡Felicitaciones por registrar y cumplir con tu progreso!',
-          // text: 'postivo',
-          text: data.succes,
-          showConfirmButton: false,
-          timer: 1500
-        });
-        this.progreso();
-      }
-    )
+    if(this.progress[this.progress.length-1]!=100){
+      this.esperanzaService.create(form).pipe(
+        finalize(() => {
+          this.form.markAsPristine();
+        })
+        ).subscribe(
+        data=>{
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Registrado',
+              // text: 'postivo',
+              text: data.succes,
+              showConfirmButton: false,
+              timer: 1500
+            });
+          this.progreso();
+        }
+      )
+    }else{
+      Swal.fire({
+        position: 'center',
+        icon: 'info',
+        title: 'Felicidades, continua Orando',
+        // text: 'postivo'
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
   }
 
   progreso(){
     this.progress = []
     this.esperanzaService.getProgress().subscribe(data=>{
       this.progress = data;
+
+      console.log(this.progress[this.progress.length-1]);
+
+
+      if (this.progress.length > 0 && this.progress[this.progress.length - 1] === 100) {
+        setTimeout(() => {
+          this.showCongratulation = false;
+          console.log('Han pasado 10 segundos');
+        }, 10000);
+      }
     })
   }
 

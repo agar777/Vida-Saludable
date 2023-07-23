@@ -7,10 +7,7 @@
         </div>
         <div class="p-3">
           <div class="alert alert-primary" role="alert">
-            <span>Horario recomendable: {{horario[0]?.hora_inicioM}} - {{horario[0]?.hora_finM}} y {{horario[0]?.hora_tarde}} - {{horario[0]?.hora_tardeF}}, minimo 25 minutos </span>
-          </div>
-          <div *ngIf="hora > horario[0]?.hora_finM && hora > horario[0]?.hora_tardeF" class="alert alert-danger" role="alert">
-              No es recomendable tomar el sol a las {{hora}}
+            <span>Horario recomendable: {{horario[0]?.hora_inicioM}} - {{horario[0]?.hora_finM}} y {{horario[0]?.hora_tarde}}, minimo 25 minutos </span>
           </div>
         </div>
         <div class="mt-2 p-3" >
@@ -25,7 +22,7 @@
                     <mat-card-content>
                       <div class="row d-flex justify-content-center  ">
                         <app-congratulation *ngIf="progress[progress.length-1]==100"></app-congratulation>
-                        <div class="col-md-5 col-lg-5 mb-3">
+                        <div class="col-md-10 col-lg-10 mb-3">
                           <div class="form-group">
                             <label class="form-control-label mb-2">FECHA ACTUAL</label>
                             <input type="date" id="" formControlName="fecha" class="form-control form-control-alternative">
@@ -33,15 +30,15 @@
                         </div>
                         <div class="col-md-5 col-lg-5 mb-3">
                           <div class="form-group">
-                            <label class="form-control-label mb-2">HORA ACTUAL</label>
-                            <input type="text" id="" formControlName="hora_inicio" class="form-control form-control-alternative">
+                            <label class="form-control-label mb-2">HORA INICIO</label>
+                            <input type="time" id="" formControlName="hora_inicio" class="form-control form-control-alternative">
                           </div>
                         </div>
-                        <div class="col-md-10 col-lg-10 mb-3 mt-3">
-                            <div class="form-group" >
-                                 <label class="form-control-label mb-2">CRONOMETRO</label>
-                                 <app-cronometro (hora)="tiempo($event)" ></app-cronometro>
-                            </div>
+                        <div class="col-md-5 col-lg-5 mb-3">
+                          <div class="form-group">
+                            <label class="form-control-label mb-2">HORA FIN</label>
+                            <input type="time" id="" formControlName="hora_fin" class="form-control form-control-alternative">
+                          </div>
                         </div>
                         <div class="col-md-10">
                           <button

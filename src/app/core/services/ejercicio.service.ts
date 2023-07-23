@@ -71,7 +71,7 @@ export class EjercicioService {
     getProgress(): Observable<any>{
       let suma = 0;
       this.progreso.splice(0,0);
-      this.store.firestore.collection('h_ejercicio').where('fecha','==',this.datePipe.transform(Date.now(),'yyyy-MM-dd')).where('user_id','==',this.tokenStorage.getId()).
+      this.store.firestore.collection('h_ejercicio').where('ejercicio_id','==','1').where('fecha','==',this.datePipe.transform(Date.now(),'yyyy-MM-dd')).where('user_id','==',this.tokenStorage.getId()).
       onSnapshot({includeMetadataChanges:true},(snapshot)=>{
         snapshot.docChanges().forEach((change)=>{
           if(change.type ==="added"){
@@ -88,7 +88,7 @@ export class EjercicioService {
     public getProgressD(date: any){
       let suma = 0;
       this.progresoD = []
-      this.store.firestore.collection('h_ejercicio').where('fecha','==',date).where('user_id','==',this.tokenStorage.getId()).
+      this.store.firestore.collection('h_ejercicio').where('fecha','==',date).where('ejercicio_id','==','1').where('user_id','==',this.tokenStorage.getId()).
       onSnapshot({includeMetadataChanges:true},(snapshot)=>{
         snapshot.docChanges().forEach((change)=>{
           if(change.type ==="added"){
