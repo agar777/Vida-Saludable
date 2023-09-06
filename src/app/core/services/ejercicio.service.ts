@@ -70,7 +70,7 @@ export class EjercicioService {
 
     getProgress(): Observable<any>{
       let suma = 0;
-      this.progreso.splice(0,0);
+      this.progreso.splice(1,1);
       this.store.firestore.collection('h_ejercicio').where('ejercicio_id','==','1').where('fecha','==',this.datePipe.transform(Date.now(),'yyyy-MM-dd')).where('user_id','==',this.tokenStorage.getId()).
       onSnapshot({includeMetadataChanges:true},(snapshot)=>{
         snapshot.docChanges().forEach((change)=>{

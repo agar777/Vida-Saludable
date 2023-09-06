@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { collection,query,orderBy, Firestore,collectionData, where} from '@angular/fire/firestore';
 import { Alimentacion } from '../models/alimentacion';
@@ -76,6 +76,14 @@ export class AlimentacionService {
       return this.progresoD
     }
 
+    disabledAlimentacion(id:any){
 
+      const ref = collection(this.firestore,'h_alimentacion');
+      const orderedRef = query(ref, where('fecha','==',this.datePipe.transform(Date.now(),'yyyy-MM-dd')),where('user_id','==',this.tokenStorage.getId()), where('nutricion_id','==',id) );
+      return collectionData(orderedRef).pipe(
+        map(data => (data.length > 0 ? data[0] : null))
+      ) as Observable<any>;
+
+    }
 
 }

@@ -27,6 +27,5 @@
         ]
       }
     }
-  ],
-  "shell": "src/firebase-messaging-sw.js"
+  ]
 }

@@ -25,7 +25,6 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.subscribeToNotifications();
-
   }
 
   subscribeToNotifications():any{
@@ -35,7 +34,7 @@ export class AppComponent {
       const token = JSON.parse(JSON.stringify(data))
       this.notificacionService.saveToken(token).subscribe((data)=>{
         console.log(data);
-        this.tokenService.saveTokenNot(token);
+        // this.tokenService.saveTokenNot(data);
       })
 
     })

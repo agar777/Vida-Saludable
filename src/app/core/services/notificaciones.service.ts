@@ -9,7 +9,7 @@ import { TokenStorageService } from './token-storage.service';
   providedIn: 'root'
 })
 export class NotificacionesService {
-  // public url='https://notificaciones-vs-production.up.railway.app'
+  // public url='https://'
   public url='https://notificaciones-vs-production.up.railway.app'
   auth: string | null;
 
@@ -29,7 +29,7 @@ export class NotificacionesService {
 
 
   sendNotification=({title,body}:any)=>{
-    return this.http.post(`${this.url}/send`,{title:title,body:body,auth: this.tokenStorageService.getTokenNot().keys.auth  },{
+    return this.http.post(`${this.url}/send`,{title:title,body:body},{
       headers: {
         'Content-Type':'application/json',
       }

@@ -18,14 +18,13 @@ export class AlimentacionComponent implements OnInit {
   showCongratulation = true;
   form!: FormGroup;
   time = new Date();
-  nutricion!: any;
+  nutricion: any;
   progress: any[] = [];
   suma: any;
   constructor(
     private alimentacionService: AlimentacionService,
     private formBuilder: FormBuilder,
-    private dataPipe: DatePipe,
-    // private fireNoti: NotificacionesFireService
+    private dataPipe: DatePipe
   ) {
     this.hora=this.dataPipe.transform(Date.now(),'HH:mm');
 
@@ -79,8 +78,30 @@ export class AlimentacionComponent implements OnInit {
   }
 
   save(data:any){
-    // if(this.progress[this.progress.length-1]!=100){
+    if(this.nutricion.nutricion_id==4){
+      this.saveAlimentacion(data);
+    }
+   else{
+    this.alimentacionService.disabledAlimentacion(this.nutricion.nutricion_id).subscribe(data1 =>{
+      if(data1===null ){
+          this.saveAlimentacion(data);
+      }else{
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: '¡UPS!',
+            text: 'Ya se realizo el registro',
+          });
+      }
+    })
+   }
 
+    this.listaAlimentacion();
+    this.progreso();
+    this.nutricion=null;
+  }
+
+  saveAlimentacion(data:any){
     this.alimentacionService.create(data).pipe(
       finalize(() => {
         this.form.markAsPristine();
@@ -98,24 +119,10 @@ export class AlimentacionComponent implements OnInit {
         });
       }
     )
-    this.listaAlimentacion();
-    this.progreso();
-    this.nutricion=null;
   }
-  // else{
-  //  Swal.fire({
-  //    position: 'center',
-  //    icon: 'warning',
-  //    title: 'Ya completado',
-  //    // text: 'postivo'
-  //    showConfirmButton: false,
-  //    timer: 1500
-  //  });
-  // }
 
 
   progreso(){
-    // this.progress=[]
     this.alimentacionService.getProgress().subscribe(data=>{
       this.progress = data;
     })

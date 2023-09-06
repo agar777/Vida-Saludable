@@ -17,7 +17,7 @@ export class TipoEjerciciosComponent implements OnInit {
   form!: FormGroup;
   ejer:any;
   progress: any[]=[];
-
+  minutos:any = 0;
   constructor(
     private route:ActivatedRoute,
     private ejercicioService:EjercicioService,
@@ -63,15 +63,23 @@ export class TipoEjerciciosComponent implements OnInit {
   tiempo(item: any) {
     this.form.controls.hora.setValue(item);
     const minutos = this.convertirATiempo(item);
-
-
+    this.minutos = minutos;
     if (this.id == 1) {
-      if (minutos >= 10 || minutos >= 20) {
+
+      if ( this.progress.length==0 && minutos >= 10 || minutos >= 20) {
         this.form.controls.progreso.setValue(30);
       }
-      if (minutos >= 20 ||minutos >= 30) {
+      if(this.progress.length==0 && minutos>=30){
+        this.form.controls.progreso.setValue(100);
+      }
+
+      if (this.progress[this.progress.length - 1]==30) {
+        this.form.controls.progreso.setValue(30);
+      }
+      if (this.progress[this.progress.length - 1]==60) {
         this.form.controls.progreso.setValue(40);
       }
+
     }
   }
 
@@ -85,6 +93,9 @@ export class TipoEjerciciosComponent implements OnInit {
   }
 
   save(data:any){
+    console.log(this.minutos);
+
+     if (this.progress[this.progress.length - 1]!=100 && this.minutos >= 10 ) {
       this.ejercicioService.create(data).pipe(
         finalize(() => {
           this.form.markAsPristine();
@@ -103,15 +114,48 @@ export class TipoEjerciciosComponent implements OnInit {
 
           this.listTipoEjercicio(this.id);
           this.progreso();
+          this.minutos = 0;
         }
       )
+     }
+     else{
+        if (this.minutos < 10) {
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: '¡sigue avanzando!',
+            // text: 'postivo',
+            text: data.succes,
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.progreso();
+          this.listTipoEjercicio(this.id);
+        }
+        else{
+          Swal.fire({
+            position: 'center',
+            icon: 'info',
+            title: '¡Felicitaciones sigue asi!',
+            // text: 'postivo',
+            text: data.succes,
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.progreso();
+          this.listTipoEjercicio(this.id);
+        }
+
+    }
   }
 
   progreso(){
     this.progress =[];
     this.ejercicioService.getProgress().subscribe(data=>{
       this.progress = data;
-      console.log(this.progress);
+
+      console.log('hola', this.progress);
+
 
     })
   }

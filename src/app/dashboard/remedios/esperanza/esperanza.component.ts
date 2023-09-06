@@ -15,7 +15,6 @@ export class EsperanzaComponent implements OnInit {
   form!: FormGroup;
   progress:any[]=[]
   esperanza: any;
-  showCongratulation: boolean = true;
 
   constructor(
     private formBuilder:FormBuilder,
@@ -92,16 +91,6 @@ export class EsperanzaComponent implements OnInit {
     this.progress = []
     this.esperanzaService.getProgress().subscribe(data=>{
       this.progress = data;
-
-      console.log(this.progress[this.progress.length-1]);
-
-
-      if (this.progress.length > 0 && this.progress[this.progress.length - 1] === 100) {
-        setTimeout(() => {
-          this.showCongratulation = false;
-          console.log('Han pasado 10 segundos');
-        }, 10000);
-      }
     })
   }
 

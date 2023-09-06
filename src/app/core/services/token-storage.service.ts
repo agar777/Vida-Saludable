@@ -19,7 +19,7 @@ export class TokenStorageService {
     window.sessionStorage.setItem(TOKEN_KEY, token);
   }
 
-  saveTokenNot(token:string):void{
+  saveTokenNot(token:any):void{
     window.sessionStorage.removeItem(TOKEN_NOT);
     window.sessionStorage.setItem(TOKEN_NOT, token);
   }

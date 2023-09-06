@@ -33,65 +33,74 @@
       </div>
       <div class="card-body border-top">
           <form [formGroup]="form" (ngSubmit)="save(form.value)" >
-              <mat-card *ngIf="nutricion?.nutricion_id!=null; else alert">
-                <mat-card-content *ngIf="nutricion?.hora_inicio>=hora || nutricion?.hora_fin>=hora; else message" >
-                  <div class="row d-flex justify-content-center">
-                    <app-congratulation *ngIf="progress[progress.length-1]==100 && showCongratulation"  ></app-congratulation>
-                    <div class="col-md-10 col-lg-10 mb-3">
-                      <div class="form-group">
-                        <label class="form-control-label">FECHA ACTUAL</label>
-                        <input type="date" id="" formControlName="fecha" class="form-control form-control-alternative">
-                      </div>
-
-                    </div>
-                    <div class="col-md-10 col-lg-10 mb-3">
-                      <div class="form-group">
-                        <label class="form-control-label">HORA</label>
-                        <input type="time" formControlName="hora" class="form-control form-control-alternative">
-                      </div>
-
-                    </div>
-                    <div class="col-md-10 col-lg-10 mb-3" *ngIf="nutricion?.nutricion_id!=4" >
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-username">SALUDABLE</label>
-                        <div class="form-check">
-                          <input class="form-check-input" formControlName="saludable" value="true" type="radio" checked>
-                          <label class="form-check-label" for="flexRadioDefault1">
-                            SI
-                          </label>
+              <ng-container *ngIf="nutricion?.nutricion_id!=null; else alert" >
+                <mat-card *ngIf="hora>=nutricion?.hora_inicio; else alert1">
+                  <mat-card-content *ngIf="nutricion?.hora_inicio>=hora || nutricion?.hora_fin>=hora; else message; " >
+                    <div class="row d-flex justify-content-center">
+                      <app-congratulation *ngIf="progress[progress.length-1]==100"  ></app-congratulation>
+                      <div class="col-md-10 col-lg-10 mb-3">
+                        <div class="form-group">
+                          <label class="form-control-label">FECHA ACTUAL</label>
+                          <input type="date" id="" formControlName="fecha" class="form-control form-control-alternative">
                         </div>
-                        <div class="form-check">
-                          <input class="form-check-input" formControlName="saludable" value="false" type="radio" >
-                          <label class="form-check-label" for="flexRadioDefault2">
-                            NO
-                          </label>
-                        </div>
-                      </div>
 
+                      </div>
+                      <div class="col-md-10 col-lg-10 mb-3">
+                        <div class="form-group">
+                          <label class="form-control-label">HORA</label>
+                          <input type="time" formControlName="hora" class="form-control form-control-alternative">
+                        </div>
+
+                      </div>
+                      <div class="col-md-10 col-lg-10 mb-3" *ngIf="nutricion?.nutricion_id!=4" >
+                        <div class="form-group">
+                          <label class="form-control-label" for="input-username">SALUDABLE</label>
+                          <div class="form-check">
+                            <input class="form-check-input" formControlName="saludable" value="true" type="radio" checked>
+                            <label class="form-check-label" for="flexRadioDefault1">
+                              SI
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" formControlName="saludable" value="false" type="radio" >
+                            <label class="form-check-label" for="flexRadioDefault2">
+                              NO
+                            </label>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="col-md-10">
+                        <button
+                          type="submit"
+                          class="btn btn-primary btn-lg"
+                          [disabled]="form.invalid"
+                        >
+                          Guardar
+                        </button>
                     </div>
-                    <div class="col-md-10">
-                      <button
-                        type="submit"
-                        class="btn btn-primary btn-lg"
-                        [disabled]="form.invalid"
-                      >
-                        Guardar
-                      </button>
-                  </div>
-                  </div>
-                </mat-card-content>
-                <ng-template #message>
-                  <mat-card-content>
-                      <h5>Ya Paso la hora de: {{nutricion?.nombre}}</h5>
+                    </div>
                   </mat-card-content>
-                </ng-template>
+                  <ng-template #message>
+                    <mat-card-content>
+                        <h5>Ya Paso la hora de: {{nutricion?.nombre}}</h5>
+                    </mat-card-content>
+                  </ng-template>
 
 
-              </mat-card>
+                </mat-card>
+              </ng-container>
+
 
               <ng-template #alert>
                 <mat-card>
                   <h5>Por favor seleccione la alimentación según el horario que le corresponde</h5>
+                </mat-card>
+              </ng-template>
+
+              <ng-template #alert1>
+                <mat-card>
+                  <h5>Todavia no es hora de: {{nutricion?.nombre}} </h5>
                 </mat-card>
               </ng-template>
 
